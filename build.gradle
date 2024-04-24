@@ -1,0 +1,66 @@
+apply plugin: 'java-library'
+
+buildscript {
+ repositories {
+  mavenCentral()
+  mavenLocal()
+ }
+ dependencies {
+  classpath 'se.bjurr.gradle:gradle-scripts:2.+'
+ }
+}
+
+project.ext.buildConfig = [
+  repoType: "DEFAULT",
+  sourceCompatibility: 17,
+  targetCompatibility: 17,
+]
+apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+
+allprojects {
+  apply plugin: 'java-library'
+}
+
+project('wiremock-pact-lib', {
+  project.ext.buildConfig = [
+    repoType: "DEFAULT",
+    sourceCompatibility: 17,
+    targetCompatibility: 17,
+  ]
+  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+
+  dependencies {
+    implementation 'au.com.dius.pact.core:model:4.6.9'
+    compileOnly 'org.wiremock:wiremock:3.5.4'
+  }
+})
+
+project('wiremock-pact-test', {
+  project.ext.buildConfig = [
+    repoType: "DEFAULT",
+    sourceCompatibility: 17,
+    targetCompatibility: 17,
+  ]
+  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+
+  dependencies {
+    testImplementation(project(":wiremock-pact-lib")) {
+		exclude group: "org.apache.groovy", module: "groovy-xml"
+	}
+    testImplementation 'org.wiremock:wiremock:3.5.4'
+	implementation 'org.assertj:assertj-core:3.25.3'
+	testImplementation platform('org.junit:junit-bom:5.10.2')
+	testImplementation 'org.junit.jupiter:junit-jupiter'
+	testImplementation 'org.junit.platform:junit-platform-launcher'
+	testImplementation("io.rest-assured:rest-assured:5.4.0") {
+		exclude group: "org.apache.groovy", module: "groovy-xml"
+	}
+	testImplementation "org.apache.groovy:groovy-xml:4.0.18"
+	
+  }
+  
+  test {
+	  useJUnitPlatform()
+  }
+
+})

@@ -1,0 +1,3 @@
+rootProject.name = 'wiremock-pact'   
+
+include 'wiremock-pact-lib', 'wiremock-pact-test'
