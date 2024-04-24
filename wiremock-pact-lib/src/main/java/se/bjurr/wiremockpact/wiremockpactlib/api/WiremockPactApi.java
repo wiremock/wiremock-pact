@@ -13,7 +13,6 @@ import au.com.dius.pact.core.model.V4Pact;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import java.util.List;
-import java.util.Objects;
 
 public final class WiremockPactApi {
   private String consumerName = "consumer-name";
@@ -44,7 +43,6 @@ public final class WiremockPactApi {
 
   /** Record all given Wiremock requests to PACT. */
   public void toPact(final List<LoggedRequest> wiremockRequests, final String pactDir) {
-    Objects.requireNonNull(wiremockRequests);
     final Consumer consumer = new Consumer(this.consumerName);
     final Provider provider = new Provider(this.providerName);
     final V4Pact v4 = new V4Pact(consumer, provider);

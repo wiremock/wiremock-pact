@@ -14,24 +14,43 @@ import se.bjurr.wiremockpact.wiremockpactlib.api.WiremockPactApi;
 @WireMockTest
 public class BaseTest {
 
+  protected Path tmpdir;
+  protected String you;
+  protected String me;
+
   @BeforeEach
   public void before(final WireMockRuntimeInfo wmRuntimeInfo) {
     RestAssured.baseURI = "http://localhost:" + wmRuntimeInfo.getHttpPort();
+    this.tmpdir = this.getTempDir();
+    this.you = "this-is-you";
+    this.me = "this-is-me";
+  }
+
+  public Path getTempDir() {
+    try {
+      return Files.createTempDirectory(this.getClass().getName() + "-tempfile");
+    } catch (final IOException e) {
+      throw new RuntimeException(e.getMessage(), e);
+    }
+  }
+
+  public String readPactFileContent(final Path tmpdir, final String you, final String me)
+      throws IOException {
+    final Path pactFile = tmpdir.resolve(me + "-" + you + ".json");
+    final String pactContent = Files.readString(pactFile);
+    return pactContent;
   }
 
   public void assertPactEquals(final String expected) {
-    Path tmpdir = null;
-    Path pactFile = null;
     try {
-      tmpdir = Files.createTempDirectory(this.getClass().getName() + "-tempfile");
+      final Path tmpdir = this.getTempDir();
       final String you = "this-is-you";
       final String me = "this-is-me";
       WiremockPactApi.builder().consumerName(me).providerName(you).toPact(tmpdir.toString());
-      pactFile = tmpdir.resolve(me + "-" + you + ".json");
-      final String pactContent = Files.readString(pactFile);
+      final String pactContent = this.readPactFileContent(tmpdir, you, me);
       assertThat(pactContent).isEqualToIgnoringWhitespace(expected);
     } catch (final IOException e) {
-      throw new RuntimeException(pactFile.toString(), e);
+      throw new RuntimeException(e.getMessage(), e);
     }
   }
 }
