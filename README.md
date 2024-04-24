@@ -1,6 +1,6 @@
 # Wiremock PACT
 
-Get requests from Wiremock and create a pact file.
+Get requests from [Wiremock](https://github.com/wiremock/wiremock/) and create a pact file.
 
 See [ExampleUsageTest](/wiremock-pact-test/src/test/java/se/bjurr/wiremockpact/wiremockpact/test/ExampleUsageTest.java) for a quick running example.
 
