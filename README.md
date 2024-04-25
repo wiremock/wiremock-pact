@@ -9,6 +9,6 @@ Get requests from [Wiremock](https://github.com/wiremock/wiremock/) and create a
 
 This repostory contains:
 
- - `wiremock-pact-lib` - *A library that can transform WireMock ServeEvent:s to PACT JSON.*
+ - `wiremock-pact-lib` - *A library that can transform WireMock [ServeEvent](https://github.com/wiremock/wiremock/blob/master/src/main/java/com/github/tomakehurst/wiremock/stubbing/ServeEvent.java):s to PACT JSON.*
  - `wiremock-pact-extension` - *A WireMock extension that is intended to ease usage of the library.*
  - `wiremock-pact-example-springboot-app` - *A SpringBoot application that shows how it can be used.*
