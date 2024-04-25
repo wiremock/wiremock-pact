@@ -10,6 +10,7 @@ import au.com.dius.pact.core.model.Provider;
 import au.com.dius.pact.core.model.SynchronousRequestResponse;
 import au.com.dius.pact.core.model.V4Interaction.SynchronousHttp;
 import au.com.dius.pact.core.model.V4Pact;
+import com.github.tomakehurst.wiremock.http.LoggedResponse;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import java.util.ArrayList;
@@ -38,14 +39,21 @@ public final class WiremockPactApi {
     final Provider provider = new Provider(this.config.getProviderDefaultValue());
     final V4Pact v4 = new V4Pact(consumer, provider);
     for (final ServeEvent serveEvent : this.serveEvents) {
-      final LoggedRequest wiremockRequest = serveEvent.getRequest();
-      final Interaction interaction = new SynchronousHttp("generated from Wiremock");
+      final LoggedRequest request = serveEvent.getRequest();
+      final LoggedResponse response = serveEvent.getResponse();
+      final Interaction interaction =
+          new SynchronousHttp(
+              request.getMethod().getName()
+                  + " "
+                  + request.getUrl()
+                  + " -> "
+                  + response.getStatus());
       final SynchronousRequestResponse asSynchronousRequestResponse =
           interaction.asSynchronousRequestResponse();
-      final IRequest request = asSynchronousRequestResponse.getRequest();
-      request.setMethod(wiremockRequest.getMethod().getName());
-      request.setPath(wiremockRequest.getUrl());
-      request.setBody(new OptionalBody(State.PRESENT, wiremockRequest.getBody()));
+      final IRequest pactRequest = asSynchronousRequestResponse.getRequest();
+      pactRequest.setMethod(request.getMethod().getName());
+      pactRequest.setPath(request.getUrl());
+      pactRequest.setBody(new OptionalBody(State.PRESENT, request.getBody()));
       v4.getInteractions().add(interaction);
     }
     v4.write(this.config.getPactJsonFolder(), PactSpecVersion.V4);

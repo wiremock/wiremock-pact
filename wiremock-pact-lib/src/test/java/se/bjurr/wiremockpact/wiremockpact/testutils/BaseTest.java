@@ -22,7 +22,7 @@ public class BaseTest {
   protected String me;
 
   @BeforeEach
-  public void before(final WireMockRuntimeInfo wmRuntimeInfo) {
+  public void baseBeforeEach(final WireMockRuntimeInfo wmRuntimeInfo) {
     RestAssured.baseURI = "http://localhost:" + wmRuntimeInfo.getHttpPort();
     this.tmpdir = this.getTempDir();
     this.you = "this-is-you";
