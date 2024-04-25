@@ -5,7 +5,7 @@ import com.github.tomakehurst.wiremock.extension.ServeEventListener;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 
 public class WireMockPactExtension implements ServeEventListener {
- 
+
   private final WiremockPactApi wiremockPactApi;
 
   public WireMockPactExtension() {
@@ -18,12 +18,12 @@ public class WireMockPactExtension implements ServeEventListener {
   }
 
   @Override
-public String getName() {
+  public String getName() {
     return WireMockPactExtension.class.getSimpleName();
   }
 
   @Override
-public void afterComplete(final ServeEvent serveEvent, final Parameters parameters) {
+  public void afterComplete(final ServeEvent serveEvent, final Parameters parameters) {
     this.wiremockPactApi.toPact(serveEvent);
   }
 }

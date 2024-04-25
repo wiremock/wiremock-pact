@@ -17,7 +17,7 @@ import java.util.List;
 
 public final class WiremockPactApi {
   private final WireMockPactConfig config;
-  private final List<ServeEvent> serveEvents = new ArrayList<ServeEvent>();
+  private final List<ServeEvent> serveEvents = new ArrayList<>();
 
   private WiremockPactApi(final WireMockPactConfig config) {
     this.config = config;
