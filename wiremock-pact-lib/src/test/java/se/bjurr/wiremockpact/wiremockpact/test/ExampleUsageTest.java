@@ -3,6 +3,7 @@ package se.bjurr.wiremockpact.wiremockpact.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
@@ -28,12 +29,15 @@ public class ExampleUsageTest extends BaseTest {
         .statusCode(200);
 
     // Use this library to create PACT json
-    WiremockPactApi.create(
+    final WiremockPactApi api =
+        WiremockPactApi.create(
             WireMockPactConfig.builder()
                 .withConsumerDefaultValue(this.me)
                 .withProviderDefaultValue(this.you)
-                .withPactJsonFolder(this.tmpdir.toString()))
-        .toPact();
+                .withPactJsonFolder(this.tmpdir.toString()));
+    for (final ServeEvent serveEvent : WireMock.getAllServeEvents()) {
+      api.toPact(serveEvent);
+    }
 
     final String pactContent = this.readPactFileContent(this.tmpdir, this.you, this.me);
 

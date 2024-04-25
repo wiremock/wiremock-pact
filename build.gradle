@@ -73,9 +73,9 @@ project('wiremock-pact-example-springboot-app', {
         implementation 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:2.17.0'
         implementation 'org.jboss.resteasy:resteasy-client:6.2.8.Final'
 
+		testImplementation project(':wiremock-pact-lib')
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'org.springframework.cloud:spring-cloud-starter-contract-stub-runner:4.1.2'
-
+		testImplementation 'com.maciejwalkowiak.spring:wiremock-spring-boot:2.1.2'
 	}
 	
 	bootJar {

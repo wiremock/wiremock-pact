@@ -2,8 +2,10 @@ package se.bjurr.wiremockpact.wiremockpact.testutils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo;
 import com.github.tomakehurst.wiremock.junit5.WireMockTest;
+import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import io.restassured.RestAssured;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -47,12 +49,15 @@ public class BaseTest {
       final Path tmpdir = this.getTempDir();
       final String you = "this-is-you";
       final String me = "this-is-me";
-      WiremockPactApi.create(
+      final WiremockPactApi api =
+          WiremockPactApi.create(
               WireMockPactConfig.builder()
                   .withConsumerDefaultValue(me)
                   .withProviderDefaultValue(you)
-                  .withPactJsonFolder(tmpdir.toString()))
-          .toPact();
+                  .withPactJsonFolder(tmpdir.toString()));
+      for (final ServeEvent serveEvent : WireMock.getAllServeEvents()) {
+        api.toPact(serveEvent);
+      }
       final String pactContent = this.readPactFileContent(tmpdir, you, me);
       assertThat(pactContent).isEqualToIgnoringWhitespace(expected);
     } catch (final IOException e) {

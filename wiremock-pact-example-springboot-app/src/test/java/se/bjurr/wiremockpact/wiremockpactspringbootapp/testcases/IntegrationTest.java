@@ -16,11 +16,25 @@ public class IntegrationTest extends TestBase {
 
     assertThat(actual.getResponse().getContentAsString())
         .isEqualToIgnoringNewLines("""
+	{
+	  "animals" : [ {
+	    "name" : "Zack"
+	  } ]
+	}
+	""");
+  }
+
+  @Test
+  public void testGetAnimal() throws Exception {
+    final MvcResult actual = this.getAnimal("1");
+
+    assertThat(actual.getResponse().getStatus()).isEqualTo(200);
+
+    assertThat(actual.getResponse().getContentAsString())
+        .isEqualToIgnoringNewLines("""
 {
-  "animals" : [ {
-    "name" : "Zack"
-  } ]
+  "name" : "Zack"
 }
-""");
+	""");
   }
 }

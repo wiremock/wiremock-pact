@@ -1,12 +1,12 @@
 {
   "id" : "d68fb4e2-48ed-40d2-bc73-0a18f54f3ece",
   "request" : {
-    "urlPattern" : "/animals",
+    "urlPattern" : "/animals/1",
     "method" : "GET"
   },
   "response" : {
     "status" : 202,
-    "body" : "{\"animals\": [{\"id\":\"1\",\"name\":\"Zack\"}]}",
+    "body" : "{\"id\":\"1\",\"name\":\"Zack\"}",
     "headers" : {
       "Content-Type" : "application/json"
     }
