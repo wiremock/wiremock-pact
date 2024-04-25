@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.MvcResult;
   @ConfigureWireMock(
       name = "wiremock-service-name",
       property = "wiremock.server.url",
-      stubLocation = "wiremock")
-  // extensions = {WireMockPactExtension.class})
+      stubLocation = "wiremock",
+      configurationCustomizers = {WireMockConfig.class})
 })
 public class TestBase {
 

@@ -52,9 +52,9 @@ public class BaseTest {
       final WiremockPactApi api =
           WiremockPactApi.create(
               WireMockPactConfig.builder()
-                  .withConsumerDefaultValue(me)
-                  .withProviderDefaultValue(you)
-                  .withPactJsonFolder(tmpdir.toString()));
+                  .setConsumerDefaultValue(me)
+                  .setProviderDefaultValue(you)
+                  .setPactJsonFolder(tmpdir.toString()));
       for (final ServeEvent serveEvent : WireMock.getAllServeEvents()) {
         api.toPact(serveEvent);
       }

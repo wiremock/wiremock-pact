@@ -1,20 +1,20 @@
 package se.bjurr.wiremockpact.wiremockpactlib.api;
 
-public final class WireMockPactConfig {
-  private String pactJsonFolder;
+public class WireMockPactConfig {
+  private String pactJsonFolder = "build/pact-json";
   private String providerMetadataJsonPath;
-  private String providerDefaultValue;
-  private String consumerDefaultValue;
+  private String providerDefaultValue = "the-provider";
+  private String consumerDefaultValue = "the-consumer";
   private String consumerMetadataJsonPath;
 
-  private WireMockPactConfig() {}
+  public WireMockPactConfig() {}
 
   public static WireMockPactConfig builder() {
     return new WireMockPactConfig();
   }
 
   /** If no consumer found in mappings file, this value will be used. */
-  public WireMockPactConfig withConsumerDefaultValue(final String value) {
+  public WireMockPactConfig setConsumerDefaultValue(final String value) {
     this.consumerDefaultValue = value;
     return this;
   }
@@ -23,13 +23,13 @@ public final class WireMockPactConfig {
    * This JSONPath will be evaluated against the Metadata field in mappings json to get the
    * consumer.
    */
-  public WireMockPactConfig withConsumerMetadataJsonPath(final String value) {
+  public WireMockPactConfig setConsumerMetadataJsonPath(final String value) {
     this.consumerMetadataJsonPath = value;
     return this;
   }
 
   /** If no provider found in mappings file, this value will be used. */
-  public WireMockPactConfig withProviderDefaultValue(final String value) {
+  public WireMockPactConfig setProviderDefaultValue(final String value) {
     this.providerDefaultValue = value;
     return this;
   }
@@ -38,13 +38,13 @@ public final class WireMockPactConfig {
    * This JSONPath will be evaluated against the Metadata field in mappings json to get the
    * provider.
    */
-  public WireMockPactConfig withProviderMetadataJsonPath(final String value) {
+  public WireMockPactConfig setProviderMetadataJsonPath(final String value) {
     this.providerMetadataJsonPath = value;
     return this;
   }
 
   /** Where to store PACT json files. */
-  public WireMockPactConfig withPactJsonFolder(final String value) {
+  public WireMockPactConfig setPactJsonFolder(final String value) {
     this.pactJsonFolder = value;
     return this;
   }
@@ -67,5 +67,20 @@ public final class WireMockPactConfig {
 
   public String getProviderMetadataJsonPath() {
     return this.providerMetadataJsonPath;
+  }
+
+  public WireMockPactConfig setValuesOrKeepDefaults(final WireMockPactConfig config) {
+    if (config.getConsumerDefaultValue() == null) {
+      this.setConsumerDefaultValue(config.getConsumerDefaultValue());
+    }
+
+    if (config.getProviderDefaultValue() == null) {
+      this.setProviderDefaultValue(config.getProviderDefaultValue());
+    }
+
+    if (config.getPactJsonFolder() == null) {
+      this.setPactJsonFolder(config.getPactJsonFolder());
+    }
+    return this;
   }
 }
