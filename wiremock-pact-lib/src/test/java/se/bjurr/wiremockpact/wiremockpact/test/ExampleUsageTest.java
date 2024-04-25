@@ -7,6 +7,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import se.bjurr.wiremockpact.wiremockpact.testutils.BaseTest;
+import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WiremockPactApi;
 
 public class ExampleUsageTest extends BaseTest {
@@ -27,10 +28,12 @@ public class ExampleUsageTest extends BaseTest {
         .statusCode(200);
 
     // Use this library to create PACT json
-    WiremockPactApi.builder() //
-        .consumerName(this.me) //
-        .providerName(this.you) //
-        .toPact(this.tmpdir.toString());
+    WiremockPactApi.create(
+            WireMockPactConfig.builder()
+                .withConsumerDefaultValue(this.me)
+                .withProviderDefaultValue(this.you)
+                .withPactJsonFolder(this.tmpdir.toString()))
+        .toPact();
 
     final String pactContent = this.readPactFileContent(this.tmpdir, this.you, this.me);
 

@@ -15,36 +15,27 @@ import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import java.util.List;
 
 public final class WiremockPactApi {
-  private String consumerName = "consumer-name";
-  private String providerName = "provider-name";
+  private final WireMockPactConfig config;
 
-  private WiremockPactApi() {}
-
-  public static WiremockPactApi builder() {
-    return new WiremockPactApi();
+  private WiremockPactApi(final WireMockPactConfig config) {
+    this.config = config;
   }
 
-  public WiremockPactApi consumerName(final String consumerName) {
-    this.consumerName = consumerName;
-    return this;
-  }
-
-  public WiremockPactApi providerName(final String providerName) {
-    this.providerName = providerName;
-    return this;
+  public static WiremockPactApi create(final WireMockPactConfig config) {
+    return new WiremockPactApi(config);
   }
 
   /** Record all Wiremock requests to PACT. */
-  public void toPact(final String pactDir) {
+  public void toPact() {
     final List<LoggedRequest> wiremockRequests =
         WireMock.findAll(WireMock.anyRequestedFor(WireMock.anyUrl()));
-    this.toPact(wiremockRequests, pactDir);
+    this.toPact(wiremockRequests);
   }
 
   /** Record all given Wiremock requests to PACT. */
-  public void toPact(final List<LoggedRequest> wiremockRequests, final String pactDir) {
-    final Consumer consumer = new Consumer(this.consumerName);
-    final Provider provider = new Provider(this.providerName);
+  public void toPact(final List<LoggedRequest> wiremockRequests) {
+    final Consumer consumer = new Consumer(this.config.getConsumerDefaultValue());
+    final Provider provider = new Provider(this.config.getProviderDefaultValue());
     final V4Pact v4 = new V4Pact(consumer, provider);
     for (final LoggedRequest wiremockRequest : wiremockRequests) {
       final Interaction interaction = new SynchronousHttp("generated from Wiremock");
@@ -56,6 +47,6 @@ public final class WiremockPactApi {
       request.setBody(new OptionalBody(State.PRESENT, wiremockRequest.getBody()));
       v4.getInteractions().add(interaction);
     }
-    v4.write(pactDir, PactSpecVersion.V4);
+    v4.write(this.config.getPactJsonFolder(), PactSpecVersion.V4);
   }
 }

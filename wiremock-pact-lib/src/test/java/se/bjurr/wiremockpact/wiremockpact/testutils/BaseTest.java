@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
+import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WiremockPactApi;
 
 @WireMockTest
@@ -46,7 +47,12 @@ public class BaseTest {
       final Path tmpdir = this.getTempDir();
       final String you = "this-is-you";
       final String me = "this-is-me";
-      WiremockPactApi.builder().consumerName(me).providerName(you).toPact(tmpdir.toString());
+      WiremockPactApi.create(
+              WireMockPactConfig.builder()
+                  .withConsumerDefaultValue(me)
+                  .withProviderDefaultValue(you)
+                  .withPactJsonFolder(tmpdir.toString()))
+          .toPact();
       final String pactContent = this.readPactFileContent(tmpdir, you, me);
       assertThat(pactContent).isEqualToIgnoringWhitespace(expected);
     } catch (final IOException e) {
