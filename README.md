@@ -1,7 +1,14 @@
+
+**Work in progress.**
+
+--------------
+
 # Wiremock PACT
 
 Get requests from [Wiremock](https://github.com/wiremock/wiremock/) and create a pact file.
 
-See [ExampleUsageTest](/wiremock-pact-test/src/test/java/se/bjurr/wiremockpact/wiremockpact/test/ExampleUsageTest.java) for a quick running example.
+This repostory contains:
 
-**Work in progress.**
+ - `wiremock-pact-lib` - *A library that can transform WireMock ServeEvent:s to PACT JSON.*
+ - `wiremock-pact-extension` - *A WireMock extension that is intended to ease usage of the library.*
+ - `wiremock-pact-example-springboot-app` - *A SpringBoot application that shows how it can be used.*
