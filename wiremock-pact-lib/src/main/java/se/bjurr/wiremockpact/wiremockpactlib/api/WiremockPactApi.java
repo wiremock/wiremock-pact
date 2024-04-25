@@ -15,8 +15,10 @@ import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public final class WiremockPactApi {
+  private static final Logger LOG = Logger.getLogger(WiremockPactApi.class.getSimpleName());
   private final WireMockPactConfig config;
   private final List<ServeEvent> serveEvents = new ArrayList<>();
 
@@ -31,6 +33,8 @@ public final class WiremockPactApi {
   /** Record all given Wiremock requests to PACT. */
   public void toPact(final ServeEvent serveEvent) {
     this.serveEvents.add(serveEvent);
+    LOG.info(
+        "Saving " + serveEvent.getRequest().getUrl() + " to " + this.config.getPactJsonFolder());
     this.saveAll();
   }
 
@@ -56,6 +60,8 @@ public final class WiremockPactApi {
       pactRequest.setBody(new OptionalBody(State.PRESENT, request.getBody()));
       v4.getInteractions().add(interaction);
     }
+
+    LOG.fine("Saving " + v4 + " to " + this.config.getPactJsonFolder());
     v4.write(this.config.getPactJsonFolder(), PactSpecVersion.V4);
   }
 }
