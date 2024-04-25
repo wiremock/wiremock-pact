@@ -1,56 +1,67 @@
 apply plugin: 'java-library'
 
 buildscript {
- repositories {
-  mavenCentral()
-  mavenLocal()
- }
- dependencies {
-  classpath 'se.bjurr.gradle:gradle-scripts:2.+'
- }
+	repositories {
+		mavenCentral()
+		mavenLocal()
+	}
+	dependencies {
+		classpath 'se.bjurr.gradle:gradle-scripts:2.+'
+	}
 }
 
 allprojects {
-  apply plugin: 'java-library'
+	apply plugin: 'java-library'
 
-  project.ext.buildConfig = [
-    repoType: "DEFAULT",
-    sourceCompatibility: 17,
-    targetCompatibility: 17,
-    staticCodeAnalysis: [
-	  maxViolations: 0
-    ]
-  ]
-  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+	project.ext.buildConfig = [
+		repoType: "DEFAULT",
+		sourceCompatibility: 17,
+		targetCompatibility: 17,
+		staticCodeAnalysis: [
+			maxViolations: 0
+		]
+	]
+	apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
-  test {
-	  useJUnitPlatform()
-  }
+	test {
+		useJUnitPlatform()
+	}
 
-  dependencies {
-	testImplementation 'org.assertj:assertj-core:3.25.3'
-	testImplementation platform('org.junit:junit-bom:5.10.2')
-	testImplementation 'org.junit.jupiter:junit-jupiter'
-	testImplementation 'org.junit.platform:junit-platform-launcher'
-  }
+	dependencies {
+		testImplementation 'org.assertj:assertj-core:3.25.3'
+		testImplementation platform('org.junit:junit-bom:5.10.2')
+		testImplementation 'org.junit.jupiter:junit-jupiter'
+		testImplementation 'org.junit.platform:junit-platform-launcher'
+	}
 }
 
 project('wiremock-pact-lib', {
-  dependencies {
-    implementation 'au.com.dius.pact.core:model:4.6.9'
-    compileOnly 'org.wiremock:wiremock:3.5.4'
-  }
+	dependencies {
+		api 'org.wiremock:wiremock:3.5.4'
+		implementation('au.com.dius.pact.core:model:4.6.9') {
+			exclude group: "org.apache.groovy", module: "groovy-xml"
+			exclude group: "org.apache.commons", module: "commons-lang3"
+			exclude group: "org.apache.commons", module: "commons-collections4"
+			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
+			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
+			exclude group: "com.google.guava", module: "guava"
+			exclude group: "commons-codec", module: "commons-codec"
+			exclude group: "io.ktor", module: "ktor-http-jvm"
+			exclude group: "com.github.mifmif", module: "generex"
+			exclude group: "javax.mail", module: "mail"
+			exclude group: "commons-beanutils", module: "commons-beanutils"
+			exclude group: "au.com.dius.pact.core", module: "pactbroker"
+		}
+
+		testImplementation("io.rest-assured:rest-assured:5.4.0") {
+			exclude group: "org.apache.groovy", module: "groovy-xml"
+		}
+		testImplementation "org.apache.groovy:groovy-xml:4.0.18"
+	}
 })
 
-project('wiremock-pact-test', {
-  dependencies {
-    testImplementation(project(":wiremock-pact-lib")) {
-		exclude group: "org.apache.groovy", module: "groovy-xml"
+project('wiremock-pact-example-springboot-app', {
+	dependencies {
+		
 	}
-    testImplementation 'org.wiremock:wiremock:3.5.4'
-	testImplementation("io.rest-assured:rest-assured:5.4.0") {
-		exclude group: "org.apache.groovy", module: "groovy-xml"
-	}
-	testImplementation "org.apache.groovy:groovy-xml:4.0.18"
-  }
 })
