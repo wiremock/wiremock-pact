@@ -1,12 +1,12 @@
-package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration;
+package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.model.AnimalIntegrationVO;
-import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.model.AnimalsIntegrationVO;
+import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model.AnimalIntegrationVO;
+import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model.AnimalsIntegrationVO;
 
 @Path("/")
 public interface IntegrationAPI {

@@ -1,4 +1,4 @@
-package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration;
+package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.clientfactory;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 

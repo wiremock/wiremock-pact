@@ -1,4 +1,4 @@
-package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration;
+package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.clientfactory;
 
 import jakarta.ws.rs.client.ClientRequestContext;
 import jakarta.ws.rs.client.ClientResponseContext;

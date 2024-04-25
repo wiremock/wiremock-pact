@@ -1,4 +1,4 @@
-package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.model;
+package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model;
 
 public class AnimalIntegrationVO {
   private final String id;
