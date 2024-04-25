@@ -7,6 +7,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'se.bjurr.gradle:gradle-scripts:2.+'
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:3.2.5"
 	}
 }
 
@@ -61,7 +62,26 @@ project('wiremock-pact-lib', {
 })
 
 project('wiremock-pact-example-springboot-app', {
+	apply plugin: "org.springframework.boot"
+	apply plugin: 'io.spring.dependency-management'
+
 	dependencies {
-		
+        implementation 'org.springframework.boot:spring-boot-starter-web'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.17.0'
+        implementation 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:2.17.0'
+        implementation 'org.jboss.resteasy:resteasy-client:6.2.8.Final'
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'com.maciejwalkowiak.spring:wiremock-spring-boot:2.1.2'
+	}
+	
+	bootJar {
+		enabled = false
+	}
+	
+	jar {
+		enabled = true
 	}
 })
