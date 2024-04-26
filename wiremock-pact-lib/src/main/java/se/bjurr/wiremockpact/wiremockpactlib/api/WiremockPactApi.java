@@ -33,11 +33,12 @@ public final class WiremockPactApi {
 
   public void addServeEvent(final ServeEvent serveEvent) {
     this.serveEvents.add(serveEvent);
-    LOG.info("Saving " + serveEvent.getRequest().getUrl() + " to " + this.getAbsoluteJsonFolder());
   }
 
   /** Record all given Wiremock requests to PACT. */
   public void saveAll() {
+    LOG.info(
+        "Saving " + this.serveEvents.size() + " serveevents to " + this.getAbsoluteJsonFolder());
     final Consumer consumer = new Consumer(this.config.getConsumerDefaultValue());
     final Provider provider = new Provider(this.config.getProviderDefaultValue());
     final V4Pact v4 = new V4Pact(consumer, provider);

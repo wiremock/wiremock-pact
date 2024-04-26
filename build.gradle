@@ -41,7 +41,6 @@ project('wiremock-pact-lib', {
 		compileOnly 'org.wiremock:wiremock:3.5.4'
 		implementation('au.com.dius.pact.core:model:4.6.9') {
 			exclude group: "org.apache.groovy", module: "groovy-xml"
-			exclude group: "org.apache.commons", module: "commons-lang3"
 			exclude group: "org.apache.commons", module: "commons-collections4"
 			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
 			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
@@ -64,7 +63,7 @@ project('wiremock-pact-lib', {
 
 project('wiremock-pact-extension', {
 	dependencies {
-		implementation project(':wiremock-pact-lib')
+		api project(':wiremock-pact-lib')
 		compileOnly platform('org.junit:junit-bom:5.10.2')
 		compileOnly 'org.junit.jupiter:junit-jupiter'
 		compileOnly 'org.wiremock:wiremock:3.5.4'

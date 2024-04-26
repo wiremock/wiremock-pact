@@ -70,15 +70,15 @@ public class WireMockPactConfig {
   }
 
   public WireMockPactConfig setValuesOrKeepDefaults(final WireMockPactConfig config) {
-    if (config.getConsumerDefaultValue() == null) {
+    if (config.getConsumerDefaultValue() != null) {
       this.setConsumerDefaultValue(config.getConsumerDefaultValue());
     }
 
-    if (config.getProviderDefaultValue() == null) {
+    if (config.getProviderDefaultValue() != null) {
       this.setProviderDefaultValue(config.getProviderDefaultValue());
     }
 
-    if (config.getPactJsonFolder() == null) {
+    if (config.getPactJsonFolder() != null) {
       this.setPactJsonFolder(config.getPactJsonFolder());
     }
     return this;
