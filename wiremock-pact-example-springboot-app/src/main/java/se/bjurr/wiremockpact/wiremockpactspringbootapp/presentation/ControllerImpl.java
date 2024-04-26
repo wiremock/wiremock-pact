@@ -2,7 +2,10 @@ package se.bjurr.wiremockpact.wiremockpactspringbootapp.presentation;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.logic.AnimalsLogicDelegatingService;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.presentation.model.AnimalDTO;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.presentation.model.AnimalsDTO;
@@ -26,5 +29,15 @@ public class ControllerImpl {
   @GetMapping("/animals/{id}")
   public AnimalDTO getAnimal(@PathVariable("id") final String id) {
     return this.mapper.toAnimalDTO(this.logic.getAnimal(id));
+  }
+
+  @PostMapping("/animals")
+  public void getAnimals(@RequestBody final AnimalsDTO animals) {
+  this.logic.postAnimals(this.mapper.toAnimals(animals));
+  }
+
+  @PostMapping("/animals/{id}")
+  public void getAnimal(@PathVariable("id") final String id, @RequestBody final AnimalDTO animal) {
+    this.logic.postAnimal(this.mapper.toAnimal(id, animal));
   }
 }

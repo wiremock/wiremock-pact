@@ -1,5 +1,15 @@
 package se.bjurr.wiremockpact.wiremockpactlib.api;
 
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
+
+import com.github.tomakehurst.wiremock.http.LoggedResponse;
+import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
+import com.github.tomakehurst.wiremock.verification.LoggedRequest;
+
 import au.com.dius.pact.core.model.Consumer;
 import au.com.dius.pact.core.model.IRequest;
 import au.com.dius.pact.core.model.Interaction;
@@ -10,13 +20,6 @@ import au.com.dius.pact.core.model.Provider;
 import au.com.dius.pact.core.model.SynchronousRequestResponse;
 import au.com.dius.pact.core.model.V4Interaction.SynchronousHttp;
 import au.com.dius.pact.core.model.V4Pact;
-import com.github.tomakehurst.wiremock.http.LoggedResponse;
-import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
-import com.github.tomakehurst.wiremock.verification.LoggedRequest;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 public final class WiremockPactApi {
   private static final Logger LOG = Logger.getLogger(WiremockPactApi.class.getSimpleName());
@@ -70,6 +73,14 @@ public final class WiremockPactApi {
   }
 
   public void clearAllSaved() {
-    LOG.info("Clearing PACT JSON in " + this.getAbsoluteJsonFolder());
+    final String absoluteJsonFolder = this.getAbsoluteJsonFolder();
+	LOG.info("Clearing PACT JSON in " + absoluteJsonFolder);
+	Arrays.asList(Paths.get(absoluteJsonFolder).toFile().listFiles()).forEach(it -> {
+    	if (it.getName().endsWith(".json")) {
+    		if (!it.delete()) {
+    			LOG.warning("Unable to delete "+it.getAbsolutePath());
+    		}
+    	}
+    });
   }
 }

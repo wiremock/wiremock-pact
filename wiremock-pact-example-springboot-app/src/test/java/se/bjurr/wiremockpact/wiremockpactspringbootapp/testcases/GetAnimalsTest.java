@@ -4,9 +4,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MvcResult;
+
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.testutils.TestBase;
 
-public class IntegrationTest extends TestBase {
+public class GetAnimalsTest extends TestBase {
 
   @Test
   public void testGetAnimals() throws Exception {
@@ -16,11 +17,12 @@ public class IntegrationTest extends TestBase {
 
     assertThat(actual.getResponse().getContentAsString())
         .isEqualToIgnoringNewLines("""
-	{
-	  "animals" : [ {
-	    "name" : "Zack"
-	  } ]
-	}
+{
+  "animals" : [ {
+    "id" : "1",
+    "name" : "Zack"
+  } ]
+}
 	""");
   }
 
@@ -33,6 +35,7 @@ public class IntegrationTest extends TestBase {
     assertThat(actual.getResponse().getContentAsString())
         .isEqualToIgnoringNewLines("""
 {
+  "id" : "1",
   "name" : "Zack"
 }
 	""");
