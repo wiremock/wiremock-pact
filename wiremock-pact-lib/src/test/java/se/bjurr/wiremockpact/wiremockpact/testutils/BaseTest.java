@@ -12,7 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
-import se.bjurr.wiremockpact.wiremockpactlib.api.WiremockPactApi;
+import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi;
 
 @WireMockTest
 public class BaseTest {
@@ -49,8 +49,8 @@ public class BaseTest {
       final Path tmpdir = this.getTempDir();
       final String you = "this-is-you";
       final String me = "this-is-me";
-      final WiremockPactApi api =
-          WiremockPactApi.create(
+      final WireMockPactApi api =
+          WireMockPactApi.create(
               WireMockPactConfig.builder()
                   .setConsumerDefaultValue(me)
                   .setProviderDefaultValue(you)

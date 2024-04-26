@@ -29,17 +29,17 @@ import java.util.logging.Logger;
 import se.bjurr.wiremockpact.wiremockpactlib.api.model.MetadataModelWireMockPactSettings;
 import se.bjurr.wiremockpact.wiremockpactlib.internal.JsonHelper;
 
-public final class WiremockPactApi {
-  private static final Logger LOG = Logger.getLogger(WiremockPactApi.class.getSimpleName());
+public final class WireMockPactApi {
+  private static final Logger LOG = Logger.getLogger(WireMockPactApi.class.getSimpleName());
   private final WireMockPactConfig config;
   private final List<ServeEvent> serveEvents = new ArrayList<>();
 
-  private WiremockPactApi(final WireMockPactConfig config) {
+  private WireMockPactApi(final WireMockPactConfig config) {
     this.config = config;
   }
 
-  public static WiremockPactApi create(final WireMockPactConfig config) {
-    return new WiremockPactApi(config);
+  public static WireMockPactApi create(final WireMockPactConfig config) {
+    return new WireMockPactApi(config);
   }
 
   public void addServeEvent(final ServeEvent serveEvent) {

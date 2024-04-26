@@ -5,16 +5,16 @@ import com.github.tomakehurst.wiremock.extension.ServeEventListener;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import se.bjurr.wiremockpact.wiremockpactextension.support.BaseSetupJunitExtension;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
-import se.bjurr.wiremockpact.wiremockpactlib.api.WiremockPactApi;
+import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi;
 
 public class WireMockPactExtension extends BaseSetupJunitExtension implements ServeEventListener {
 
-  private final WiremockPactApi wiremockPactApi;
+  private final WireMockPactApi wiremockPactApi;
 
   public WireMockPactExtension(final WireMockPactConfig config) {
     super();
     this.wiremockPactApi =
-        WiremockPactApi.create(WireMockPactConfig.builder().setValuesOrKeepDefaults(config));
+        WireMockPactApi.create(WireMockPactConfig.builder().setValuesOrKeepDefaults(config));
   }
 
   @Override
