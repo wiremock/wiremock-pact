@@ -1,6 +1,6 @@
 # Wiremock PACT
 
-Get requests from [Wiremock](https://github.com/wiremock/wiremock/) and create a pact JSON file. For publishing the JSON, you may want to look at [pact-jvm](https://github.com/pact-foundation/pact-jvm/tree/master/provider).
+Get requests from [Wiremock](https://github.com/wiremock/wiremock/) and create [PACT JSON](https://docs.pact.io/). You may publish the JSON to a broker using [pact-jvm](https://github.com/pact-foundation/pact-jvm/tree/master/provider).
 
 This repostory contains:
 
