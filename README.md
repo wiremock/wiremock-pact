@@ -64,6 +64,6 @@ You can adjust any mappings file like this to specify the provider of a mapping 
 +   "wireMockPactSettings": {
 +     "provider":"some-other-system"
 +   }
-  }
++  }
 }
 ```
