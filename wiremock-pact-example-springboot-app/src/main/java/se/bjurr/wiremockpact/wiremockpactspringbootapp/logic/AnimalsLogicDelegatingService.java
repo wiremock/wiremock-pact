@@ -1,7 +1,6 @@
 package se.bjurr.wiremockpact.wiremockpactspringbootapp.logic;
 
 import org.springframework.stereotype.Service;
-
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.IntegrationDelegatingService;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model.AnimalIntegrationVO;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model.AnimalsIntegrationVO;
@@ -23,11 +22,11 @@ public class AnimalsLogicDelegatingService {
     return this.integrationService.getAnimal(id);
   }
 
-public void postAnimals(final AnimalsIntegrationVO animals) {
-     this.integrationService.postAnimals(animals);
-}
+  public void postAnimals(final AnimalsIntegrationVO animals) {
+    this.integrationService.postAnimals(animals);
+  }
 
-public void postAnimal(final AnimalIntegrationVO animal) {
-     this.integrationService.postAnimal(animal);
-}
+  public void postAnimal(final AnimalIntegrationVO animal) {
+    this.integrationService.postAnimal(animal);
+  }
 }

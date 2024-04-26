@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.logic.AnimalsLogicDelegatingService;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.presentation.model.AnimalDTO;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.presentation.model.AnimalsDTO;
@@ -33,7 +32,7 @@ public class ControllerImpl {
 
   @PostMapping("/animals")
   public void getAnimals(@RequestBody final AnimalsDTO animals) {
-  this.logic.postAnimals(this.mapper.toAnimals(animals));
+    this.logic.postAnimals(this.mapper.toAnimals(animals));
   }
 
   @PostMapping("/animals/{id}")

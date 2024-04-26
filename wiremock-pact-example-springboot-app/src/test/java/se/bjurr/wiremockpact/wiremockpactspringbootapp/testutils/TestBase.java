@@ -28,10 +28,16 @@ public class TestBase extends WireMockPactBaseTest {
   }
 
   public MvcResult postAnimals(final String content) throws Exception {
-	    return this.mockMvc.perform(post("/animals").contentType(MediaType.APPLICATION_JSON).content(content)).andDo(log()).andReturn();
-}
+    return this.mockMvc
+        .perform(post("/animals").contentType(MediaType.APPLICATION_JSON).content(content))
+        .andDo(log())
+        .andReturn();
+  }
 
   public MvcResult postAnimal(final String id, final String content) throws Exception {
-	    return this.mockMvc.perform(post("/animals/" + id).contentType(MediaType.APPLICATION_JSON).content(content)).andDo(log()).andReturn();
-}
+    return this.mockMvc
+        .perform(post("/animals/" + id).contentType(MediaType.APPLICATION_JSON).content(content))
+        .andDo(log())
+        .andReturn();
+  }
 }

@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.MvcResult;
-
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.testutils.TestBase;
 
 public class GetAnimalsTest extends TestBase {
@@ -16,7 +15,8 @@ public class GetAnimalsTest extends TestBase {
     assertThat(actual.getResponse().getStatus()).isEqualTo(200);
 
     assertThat(actual.getResponse().getContentAsString())
-        .isEqualToIgnoringNewLines("""
+        .isEqualToIgnoringNewLines(
+            """
 {
   "animals" : [ {
     "id" : "1",

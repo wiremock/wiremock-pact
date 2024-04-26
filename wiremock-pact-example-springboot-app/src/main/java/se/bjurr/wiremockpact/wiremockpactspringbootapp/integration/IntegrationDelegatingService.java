@@ -2,7 +2,6 @@ package se.bjurr.wiremockpact.wiremockpactspringbootapp.integration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.IntegrationAPI;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model.AnimalIntegrationVO;
 import se.bjurr.wiremockpact.wiremockpactspringbootapp.integration.api.model.AnimalsIntegrationVO;
@@ -23,12 +22,12 @@ public class IntegrationDelegatingService {
   public AnimalIntegrationVO getAnimal(final String id) {
     return this.api.getAnimal(id);
   }
-  
+
   public void postAnimals(final AnimalsIntegrationVO animals) {
-	     this.api.postAnimals(animals);
+    this.api.postAnimals(animals);
   }
 
-public void postAnimal(final AnimalIntegrationVO animal) {
-    this.api.postAnimal(animal.getId(),animal);
+  public void postAnimal(final AnimalIntegrationVO animal) {
+    this.api.postAnimal(animal.getId(), animal);
   }
 }

@@ -1,12 +1,10 @@
 package se.bjurr.wiremockpact.wiremockpactspringbootapp.testutils;
 
-import org.junit.jupiter.api.extension.RegisterExtension;
-
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.maciejwalkowiak.wiremock.spring.ConfigureWireMock;
 import com.maciejwalkowiak.wiremock.spring.EnableWireMock;
 import com.maciejwalkowiak.wiremock.spring.WireMockConfigurationCustomizer;
-
+import org.junit.jupiter.api.extension.RegisterExtension;
 import se.bjurr.wiremockpact.wiremockpactextension.WireMockPactExtension;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 
@@ -20,7 +18,8 @@ import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 public class WireMockPactBaseTest implements WireMockConfigurationCustomizer {
   @RegisterExtension
   static WireMockPactExtension WIREMOCK_PACT_EXTENSION =
-      new WireMockPactExtension(WireMockPactConfig.builder().setPactJsonFolder("build/my-pact-json"));
+      new WireMockPactExtension(
+          WireMockPactConfig.builder().setPactJsonFolder("src/test/resources/pact-json"));
 
   @Override
   public void customize(
