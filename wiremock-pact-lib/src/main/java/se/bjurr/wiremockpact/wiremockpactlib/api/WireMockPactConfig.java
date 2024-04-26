@@ -1,11 +1,9 @@
 package se.bjurr.wiremockpact.wiremockpactlib.api;
 
 public class WireMockPactConfig {
-  private String pactJsonFolder = "build/pact-json";
-  private String providerMetadataJsonPath;
+  private String pactJsonFolder = "pact-json";
   private String providerDefaultValue = "the-provider";
   private String consumerDefaultValue = "the-consumer";
-  private String consumerMetadataJsonPath;
 
   public WireMockPactConfig() {}
 
@@ -19,27 +17,9 @@ public class WireMockPactConfig {
     return this;
   }
 
-  /**
-   * This JSONPath will be evaluated against the Metadata field in mappings json to get the
-   * consumer.
-   */
-  public WireMockPactConfig setConsumerMetadataJsonPath(final String value) {
-    this.consumerMetadataJsonPath = value;
-    return this;
-  }
-
   /** If no provider found in mappings file, this value will be used. */
   public WireMockPactConfig setProviderDefaultValue(final String value) {
     this.providerDefaultValue = value;
-    return this;
-  }
-
-  /**
-   * This JSONPath will be evaluated against the Metadata field in mappings json to get the
-   * provider.
-   */
-  public WireMockPactConfig setProviderMetadataJsonPath(final String value) {
-    this.providerMetadataJsonPath = value;
     return this;
   }
 
@@ -53,20 +33,12 @@ public class WireMockPactConfig {
     return this.consumerDefaultValue;
   }
 
-  public String getConsumerMetadataJsonPath() {
-    return this.consumerMetadataJsonPath;
-  }
-
   public String getPactJsonFolder() {
     return this.pactJsonFolder;
   }
 
   public String getProviderDefaultValue() {
     return this.providerDefaultValue;
-  }
-
-  public String getProviderMetadataJsonPath() {
-    return this.providerMetadataJsonPath;
   }
 
   public WireMockPactConfig setValuesOrKeepDefaults(final WireMockPactConfig config) {

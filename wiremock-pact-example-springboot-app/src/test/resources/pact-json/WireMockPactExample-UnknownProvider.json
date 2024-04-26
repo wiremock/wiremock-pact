@@ -1,0 +1,80 @@
+{
+  "consumer": {
+    "name": "WireMockPactExample"
+  },
+  "interactions": [
+    {
+      "description": "GET /animals -> 202",
+      "key": "8e3fb9c3",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": ""
+        },
+        "method": "GET",
+        "path": "/animals"
+      },
+      "response": {
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST /animals -> 201",
+      "key": "bce44146",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "animals": [
+              {
+                "id": "0",
+                "name": "Zack"
+              }
+            ]
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "method": "POST",
+        "path": "/animals"
+      },
+      "response": {
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST /animals/1 -> 201",
+      "key": "497465d0",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "id": "1",
+            "name": "Zack"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "method": "POST",
+        "path": "/animals/1"
+      },
+      "response": {
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.9"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "UnknownProvider"
+  }
+}

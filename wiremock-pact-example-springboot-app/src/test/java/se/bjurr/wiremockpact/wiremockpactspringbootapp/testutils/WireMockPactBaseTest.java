@@ -19,7 +19,10 @@ public class WireMockPactBaseTest implements WireMockConfigurationCustomizer {
   @RegisterExtension
   static WireMockPactExtension WIREMOCK_PACT_EXTENSION =
       new WireMockPactExtension(
-          WireMockPactConfig.builder().setPactJsonFolder("src/test/resources/pact-json"));
+          WireMockPactConfig.builder() //
+              .setConsumerDefaultValue("WireMockPactExample") //
+              .setProviderDefaultValue("UnknownProvider") //
+              .setPactJsonFolder("src/test/resources/pact-json"));
 
   @Override
   public void customize(

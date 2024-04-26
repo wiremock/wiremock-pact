@@ -1,0 +1,34 @@
+{
+  "consumer": {
+    "name": "WireMockPactExample"
+  },
+  "interactions": [
+    {
+      "description": "GET /animals/1 -> 202",
+      "key": "31d389cd",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": ""
+        },
+        "method": "GET",
+        "path": "/animals/1"
+      },
+      "response": {
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    }
+  ],
+  "metadata": {
+    "pact-jvm": {
+      "version": "4.6.9"
+    },
+    "pactSpecification": {
+      "version": "4.0"
+    }
+  },
+  "provider": {
+    "name": "some-other-system"
+  }
+}
