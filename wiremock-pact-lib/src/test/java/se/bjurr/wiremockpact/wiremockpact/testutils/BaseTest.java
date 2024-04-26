@@ -55,9 +55,11 @@ public class BaseTest {
                   .setConsumerDefaultValue(me)
                   .setProviderDefaultValue(you)
                   .setPactJsonFolder(tmpdir.toString()));
+      api.clearAllSaved();
       for (final ServeEvent serveEvent : WireMock.getAllServeEvents()) {
-        api.toPact(serveEvent);
+        api.addServeEvent(serveEvent);
       }
+      api.saveAll();
       final String pactContent = this.readPactFileContent(tmpdir, you, me);
       assertThat(pactContent).isEqualToIgnoringWhitespace(expected);
     } catch (final IOException e) {

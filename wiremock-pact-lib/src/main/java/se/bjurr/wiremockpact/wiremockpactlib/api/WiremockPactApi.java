@@ -13,6 +13,7 @@ import au.com.dius.pact.core.model.V4Pact;
 import com.github.tomakehurst.wiremock.http.LoggedResponse;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -30,15 +31,13 @@ public final class WiremockPactApi {
     return new WiremockPactApi(config);
   }
 
-  /** Record all given Wiremock requests to PACT. */
-  public void toPact(final ServeEvent serveEvent) {
+  public void addServeEvent(final ServeEvent serveEvent) {
     this.serveEvents.add(serveEvent);
-    LOG.info(
-        "Saving " + serveEvent.getRequest().getUrl() + " to " + this.config.getPactJsonFolder());
-    this.saveAll();
+    LOG.info("Saving " + serveEvent.getRequest().getUrl() + " to " + this.getAbsoluteJsonFolder());
   }
 
-  private void saveAll() {
+  /** Record all given Wiremock requests to PACT. */
+  public void saveAll() {
     final Consumer consumer = new Consumer(this.config.getConsumerDefaultValue());
     final Provider provider = new Provider(this.config.getProviderDefaultValue());
     final V4Pact v4 = new V4Pact(consumer, provider);
@@ -61,7 +60,15 @@ public final class WiremockPactApi {
       v4.getInteractions().add(interaction);
     }
 
-    LOG.fine("Saving " + v4 + " to " + this.config.getPactJsonFolder());
-    v4.write(this.config.getPactJsonFolder(), PactSpecVersion.V4);
+    LOG.fine("Saving " + v4 + " to " + this.getAbsoluteJsonFolder());
+    v4.write(this.getAbsoluteJsonFolder(), PactSpecVersion.V4);
+  }
+
+  private String getAbsoluteJsonFolder() {
+    return Paths.get(this.config.getPactJsonFolder()).toFile().getAbsolutePath();
+  }
+
+  public void clearAllSaved() {
+    LOG.info("Clearing PACT JSON in " + this.getAbsoluteJsonFolder());
   }
 }

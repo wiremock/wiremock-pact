@@ -65,6 +65,8 @@ project('wiremock-pact-lib', {
 project('wiremock-pact-extension', {
 	dependencies {
 		implementation project(':wiremock-pact-lib')
+		compileOnly platform('org.junit:junit-bom:5.10.2')
+		compileOnly 'org.junit.jupiter:junit-jupiter'
 		compileOnly 'org.wiremock:wiremock:3.5.4'
 		
 		testImplementation 'org.wiremock:wiremock:3.5.4'

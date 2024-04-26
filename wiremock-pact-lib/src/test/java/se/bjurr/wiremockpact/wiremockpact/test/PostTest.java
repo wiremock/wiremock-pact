@@ -136,6 +136,46 @@ public class PostTest extends BaseTest {
         "status": 200
       },
       "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST /postrequest -> 200",
+      "key": "99132e13",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "a": "b"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "method": "POST",
+        "path": "/postrequest"
+      },
+      "response": {
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST /postrequest -> 200",
+      "key": "99132e13",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "a": "b"
+          },
+          "contentType": "application/json",
+          "encoded": false
+        },
+        "method": "POST",
+        "path": "/postrequest"
+      },
+      "response": {
+        "status": 200
+      },
+      "type": "Synchronous/HTTP"
     }
   ],
   "metadata": {
@@ -150,6 +190,7 @@ public class PostTest extends BaseTest {
     "name": "this-is-you"
   }
 }
+
 """);
   }
 
