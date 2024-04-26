@@ -1,6 +1,8 @@
-# Wiremock PACT
+# WireMock PACT
 
-Get requests from [Wiremock](https://github.com/wiremock/wiremock/) and create [PACT JSON](https://docs.pact.io/). You may publish the JSON to a broker using [pact-jvm](https://github.com/pact-foundation/pact-jvm/tree/master/provider).
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.bjurr.wiremockpact/wiremock-pact/badge.svg)](https://repo1.maven.org/maven2/se/bjurr/wiremockpact)
+
+Get requests from [WireMock](https://github.com/wiremock/wiremock/) and create [PACT JSON](https://docs.pact.io/). You may publish the JSON to a broker using [pact-jvm](https://github.com/pact-foundation/pact-jvm/tree/master/provider).
 
 This repostory contains:
 
