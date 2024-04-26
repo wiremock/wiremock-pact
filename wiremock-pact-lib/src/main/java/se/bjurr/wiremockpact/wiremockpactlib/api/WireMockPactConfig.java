@@ -62,27 +62,4 @@ public class WireMockPactConfig {
   public String getIncludeResponseHeadersRegexp() {
     return this.includeResponseHeadersRegexp;
   }
-
-  public WireMockPactConfig setValuesOrKeepDefaults(final WireMockPactConfig config) {
-    if (config.getConsumerDefaultValue() != null) {
-      this.setConsumerDefaultValue(config.getConsumerDefaultValue());
-    }
-
-    if (config.getProviderDefaultValue() != null) {
-      this.setProviderDefaultValue(config.getProviderDefaultValue());
-    }
-
-    if (config.getPactJsonFolder() != null) {
-      this.setPactJsonFolder(config.getPactJsonFolder());
-    }
-
-    if (config.getIncludeRequestHeadersRegexp() != null) {
-      this.setIncludeRequestHeadersRegexp(config.getIncludeRequestHeadersRegexp());
-    }
-
-    if (config.getIncludeResponseHeadersRegexp() != null) {
-      this.setIncludeResponseHeadersRegexp(config.getIncludeResponseHeadersRegexp());
-    }
-    return this;
-  }
 }

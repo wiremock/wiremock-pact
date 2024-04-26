@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
-import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi;
+import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 
 @WireMockTest
 public class BaseTest {
