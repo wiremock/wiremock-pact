@@ -41,10 +41,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -62,6 +73,7 @@ public class GetTest extends BaseTest {
     "name": "this-is-you"
   }
 }
+
 """);
   }
 
@@ -109,10 +121,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest_1"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -125,10 +148,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest_2"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -141,10 +175,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest_3"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -162,6 +207,7 @@ public class GetTest extends BaseTest {
     "name": "this-is-you"
   }
 }
+
 """);
   }
 
@@ -209,10 +255,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest_1?a=b"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -225,10 +282,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest_2?a=b&a=b"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -241,10 +309,21 @@ public class GetTest extends BaseTest {
         "body": {
           "content": ""
         },
+        "headers": {
+          "Accept": [
+            "application/json, application/javascript, text/javascript, text/json"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ]
+        },
         "method": "GET",
         "path": "/getrequest_3?a=b&c=d&e=f"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -262,6 +341,7 @@ public class GetTest extends BaseTest {
     "name": "this-is-you"
   }
 }
+
 """);
   }
 }

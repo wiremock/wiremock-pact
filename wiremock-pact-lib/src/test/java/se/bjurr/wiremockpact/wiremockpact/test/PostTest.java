@@ -48,10 +48,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -69,6 +86,7 @@ public class PostTest extends BaseTest {
     "name": "this-is-you"
   }
 }
+
 """);
   }
 
@@ -129,10 +147,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -149,10 +184,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -169,10 +221,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -251,10 +320,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest?a=b"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -271,10 +357,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest?a=b&a=b"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -291,10 +394,27 @@ public class PostTest extends BaseTest {
           "contentType": "application/json",
           "encoded": false
         },
+        "headers": {
+          "Accept": [
+            "*/*"
+          ],
+          "Accept-Encoding": [
+            "gzip,deflate"
+          ],
+          "Content-Length": [
+            "10"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
         "method": "POST",
         "path": "/postrequest?a=b&c=d&e=f"
       },
       "response": {
+        "body": {
+          "content": ""
+        },
         "status": 200
       },
       "type": "Synchronous/HTTP"
@@ -312,6 +432,7 @@ public class PostTest extends BaseTest {
     "name": "this-is-you"
   }
 }
+
 """);
   }
 }

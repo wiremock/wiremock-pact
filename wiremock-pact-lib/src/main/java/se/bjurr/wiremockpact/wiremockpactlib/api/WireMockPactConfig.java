@@ -4,6 +4,8 @@ public class WireMockPactConfig {
   private String pactJsonFolder = "pact-json";
   private String providerDefaultValue = "the-provider";
   private String consumerDefaultValue = "the-consumer";
+  private String includeRequestHeadersRegexp = "^(?!Host|User-Agent|Connection$).*";
+  private String includeResponseHeadersRegexp = "^(?!Matched-Stub-Id$).*";
 
   public WireMockPactConfig() {}
 
@@ -29,6 +31,18 @@ public class WireMockPactConfig {
     return this;
   }
 
+  public WireMockPactConfig setIncludeRequestHeadersRegexp(
+      final String includeRequestHeadersRegexp) {
+    this.includeRequestHeadersRegexp = includeRequestHeadersRegexp;
+    return this;
+  }
+
+  public WireMockPactConfig setIncludeResponseHeadersRegexp(
+      final String includeResponseHeadersRegexp) {
+    this.includeResponseHeadersRegexp = includeResponseHeadersRegexp;
+    return this;
+  }
+
   public String getConsumerDefaultValue() {
     return this.consumerDefaultValue;
   }
@@ -39,6 +53,14 @@ public class WireMockPactConfig {
 
   public String getProviderDefaultValue() {
     return this.providerDefaultValue;
+  }
+
+  public String getIncludeRequestHeadersRegexp() {
+    return this.includeRequestHeadersRegexp;
+  }
+
+  public String getIncludeResponseHeadersRegexp() {
+    return this.includeResponseHeadersRegexp;
   }
 
   public WireMockPactConfig setValuesOrKeepDefaults(final WireMockPactConfig config) {
@@ -52,6 +74,14 @@ public class WireMockPactConfig {
 
     if (config.getPactJsonFolder() != null) {
       this.setPactJsonFolder(config.getPactJsonFolder());
+    }
+
+    if (config.getIncludeRequestHeadersRegexp() != null) {
+      this.setIncludeRequestHeadersRegexp(config.getIncludeRequestHeadersRegexp());
+    }
+
+    if (config.getIncludeResponseHeadersRegexp() != null) {
+      this.setIncludeResponseHeadersRegexp(config.getIncludeResponseHeadersRegexp());
     }
     return this;
   }
