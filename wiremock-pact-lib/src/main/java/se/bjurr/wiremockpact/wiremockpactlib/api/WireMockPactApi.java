@@ -16,6 +16,9 @@ import com.github.tomakehurst.wiremock.http.HttpHeader;
 import com.github.tomakehurst.wiremock.http.LoggedResponse;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,10 +29,12 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import se.bjurr.wiremockpact.wiremockpactlib.api.model.MetadataModelWireMockPactSettings;
 import se.bjurr.wiremockpact.wiremockpactlib.internal.JsonHelper;
 
 public final class WireMockPactApi {
+  public static final String WIRE_MOCK_METADATA_PACT_SETTINGS = "wireMockPactSettings";
   private static final Logger LOG = Logger.getLogger(WireMockPactApi.class.getSimpleName());
   private final WireMockPactConfig config;
   private final List<ServeEvent> serveEvents = new ArrayList<>();
@@ -108,12 +113,40 @@ public final class WireMockPactApi {
     if (metadata == null) {
       return new MetadataModelWireMockPactSettings();
     }
-    final String json = JsonHelper.toJson(metadata.get("wireMockPactSettings"));
+    final String json = JsonHelper.toJson(metadata.get(WIRE_MOCK_METADATA_PACT_SETTINGS));
     return JsonHelper.fromJson(MetadataModelWireMockPactSettings.class, json);
   }
 
   private String getAbsoluteJsonFolder() {
     return Paths.get(this.config.getPactJsonFolder()).toFile().getAbsolutePath();
+  }
+
+  public List<File> getAllSaved() {
+    final String absoluteJsonFolder = this.getAbsoluteJsonFolder();
+    LOG.info("Clearing PACT JSON in " + absoluteJsonFolder);
+    final Path path = Paths.get(absoluteJsonFolder);
+    if (path == null || path.toFile() == null || path.toFile().listFiles() == null) {
+      return new ArrayList<File>();
+    }
+    return Arrays.asList(path.toFile().listFiles()).stream()
+        .filter(it -> it.getName().endsWith(".json"))
+        .map(it -> it)
+        .toList();
+  }
+
+  public Map<String, String> getAllSavedContent() {
+    return new TreeMap<>(
+        this.getAllSaved().stream()
+            .collect(
+                Collectors.toMap(
+                    File::getName,
+                    it -> {
+                      try {
+                        return Files.readString(it.toPath());
+                      } catch (final IOException e) {
+                        throw new RuntimeException(e);
+                      }
+                    })));
   }
 
   public void clearAllSaved() {
@@ -123,13 +156,11 @@ public final class WireMockPactApi {
     if (path == null || path.toFile() == null || path.toFile().listFiles() == null) {
       return;
     }
-    Arrays.asList(path.toFile().listFiles())
+    this.getAllSaved()
         .forEach(
             it -> {
-              if (it.getName().endsWith(".json")) {
-                if (!it.delete()) {
-                  LOG.warning("Unable to delete " + it.getAbsolutePath());
-                }
+              if (!it.delete()) {
+                LOG.warning("Unable to delete " + it.getAbsolutePath());
               }
             });
   }

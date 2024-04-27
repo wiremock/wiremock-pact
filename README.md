@@ -10,7 +10,7 @@ This repostory contains:
 - `wiremock-pact-extension` - *A WireMock extension that is intended to ease usage of the library.*
 - `wiremock-pact-example-springboot-app` - *A SpringBoot application that shows how it can be used.*
 
-## Usage with Junit 5
+## Usage - Junit 5
 
 The extension is both a WireMock extension and a JUnit 5 extension. When using [`wiremock-spring-boot`](https://wiremock.org/docs/solutions/spring-boot/) it can be configured like this in a base class of your tests:
 
@@ -47,7 +47,61 @@ public class WireMockPactBaseTest implements WireMockConfigurationCustomizer {
 }
 ```
 
-## Set provider of a mapping
+## Usage - Library
+
+It can be used as a library.
+
+```java
+public class ExampleTest {
+  private static WireMockServer server;
+  private static WireMockPactApi wireMockPactApi;
+
+  @BeforeAll
+  public static void beforeEach() throws IOException {
+    server = new WireMockServer();
+    server.start();
+
+    stubFor(
+        post(anyUrl())
+            .willReturn(
+                ok()
+                .withHeader("content-type", "application/json")
+                .withBody("""
+                {"a":"b"}
+                """))
+            .withMetadata(
+                new Metadata(
+                    Map.of(
+                        WIRE_MOCK_METADATA_PACT_SETTINGS,
+                        new MetadataModelWireMockPactSettings("some-specific-provider")))));
+
+    wireMockPactApi =
+        WireMockPactApi.create(
+            new WireMockPactConfig()
+                .setConsumerDefaultValue("my-service")
+                .setProviderDefaultValue("unknown-service")
+                .setPactJsonFolder("the/pact-json/folder");
+    wireMockPactApi.clearAllSaved();
+  }
+
+  @Test
+  public void testInvoke() {
+    // Do stuff that invokes WireMock...
+  }
+
+  @AfterAll
+  public static void after() {
+    for (final ServeEvent serveEvent : server.getAllServeEvents()) {
+      wireMockPactApi.addServeEvent(serveEvent);
+    }
+    // Save pact-json to folder given in WireMockPactApi
+    wireMockPactApi.saveAll();
+    server.stop();
+  }
+}
+```
+
+## Mappings metadata - Set provider in mapping
 
 You can adjust any mappings file like this to specify the provider of a mapping in its [metadata](https://github.com/wiremock/spec/blob/main/wiremock/wiremock-admin-api/schemas/stub-mapping.yaml) field:
 
@@ -68,4 +122,16 @@ You can adjust any mappings file like this to specify the provider of a mapping 
 +   }
 +  }
 }
+```
+
+Or programmatically:
+
+```java
+    stubFor(
+        post(anyUrl())
+            .withMetadata(
+                new Metadata(
+                    Map.of(
+                        WIRE_MOCK_METADATA_PACT_SETTINGS,
+                        new MetadataModelWireMockPactSettings("some-specific-provider")))));
 ```
