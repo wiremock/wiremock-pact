@@ -3,15 +3,15 @@ package se.bjurr.wiremockpact.wiremockpactlib.api.model;
 import java.util.Objects;
 
 public class MetadataModel {
-  private MetadataModelWireMockPactSettings wireMockPactSettings;
+  private WireMockPactMetadata wireMockPactSettings;
 
   public MetadataModel() {}
 
-  public MetadataModel(final MetadataModelWireMockPactSettings wireMockPactSettings) {
+  public MetadataModel(final WireMockPactMetadata wireMockPactSettings) {
     this.wireMockPactSettings = wireMockPactSettings;
   }
 
-  public MetadataModelWireMockPactSettings getWireMockPactSettings() {
+  public WireMockPactMetadata getWireMockPactSettings() {
     return this.wireMockPactSettings;
   }
 

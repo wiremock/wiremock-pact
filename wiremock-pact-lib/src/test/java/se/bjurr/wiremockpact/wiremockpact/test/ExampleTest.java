@@ -6,7 +6,6 @@ import static com.github.tomakehurst.wiremock.client.WireMock.ok;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
 import static org.assertj.core.api.Assertions.assertThat;
-import static se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi.WIRE_MOCK_METADATA_PACT_SETTINGS;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.Metadata;
@@ -23,7 +22,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
-import se.bjurr.wiremockpact.wiremockpactlib.api.model.MetadataModelWireMockPactSettings;
+import se.bjurr.wiremockpact.wiremockpactlib.api.model.WireMockPactMetadata;
 
 public class ExampleTest {
 
@@ -53,8 +52,8 @@ public class ExampleTest {
             .withMetadata(
                 new Metadata(
                     Map.of(
-                        WIRE_MOCK_METADATA_PACT_SETTINGS,
-                        new MetadataModelWireMockPactSettings("some-specific-provider")))));
+                        WireMockPactMetadata.METADATA_ATTR,
+                        new WireMockPactMetadata().setProvider("some-specific-provider")))));
 
     RestAssured.baseURI = "http://localhost:" + server.port();
     final Path tmpdir = Files.createTempDirectory(ExampleTest.class.getName() + "-tempfile");

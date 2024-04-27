@@ -1,5 +1,7 @@
 package se.bjurr.wiremockpact.wiremockpactlib.api;
 
+import static se.bjurr.wiremockpact.wiremockpactlib.api.model.WireMockPactMetadata.METADATA_ATTR;
+
 import au.com.dius.pact.core.model.Consumer;
 import au.com.dius.pact.core.model.IRequest;
 import au.com.dius.pact.core.model.IResponse;
@@ -30,11 +32,10 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import se.bjurr.wiremockpact.wiremockpactlib.api.model.MetadataModelWireMockPactSettings;
+import se.bjurr.wiremockpact.wiremockpactlib.api.model.WireMockPactMetadata;
 import se.bjurr.wiremockpact.wiremockpactlib.internal.JsonHelper;
 
 public final class WireMockPactApi {
-  public static final String WIRE_MOCK_METADATA_PACT_SETTINGS = "wireMockPactSettings";
   private static final Logger LOG = Logger.getLogger(WireMockPactApi.class.getSimpleName());
   private final WireMockPactConfig config;
   private final List<ServeEvent> serveEvents = new ArrayList<>();
@@ -59,7 +60,7 @@ public final class WireMockPactApi {
     final String defaultProvider = this.config.getProviderDefaultValue();
     final Map<String, List<Interaction>> interactionsPerProvider = new TreeMap<>();
     for (final ServeEvent serveEvent : this.serveEvents) {
-      final MetadataModelWireMockPactSettings pactSettings = this.getMetadataModel(serveEvent);
+      final WireMockPactMetadata pactSettings = this.getMetadataModel(serveEvent);
       final String provider =
           Optional.ofNullable(pactSettings.getProvider()).orElse(defaultProvider);
 
@@ -108,13 +109,13 @@ public final class WireMockPactApi {
     }
   }
 
-  private MetadataModelWireMockPactSettings getMetadataModel(final ServeEvent serveEvent) {
+  private WireMockPactMetadata getMetadataModel(final ServeEvent serveEvent) {
     final Metadata metadata = serveEvent.getStubMapping().getMetadata();
     if (metadata == null) {
-      return new MetadataModelWireMockPactSettings();
+      return new WireMockPactMetadata();
     }
-    final String json = JsonHelper.toJson(metadata.get(WIRE_MOCK_METADATA_PACT_SETTINGS));
-    return JsonHelper.fromJson(MetadataModelWireMockPactSettings.class, json);
+    final String json = JsonHelper.toJson(metadata.get(METADATA_ATTR));
+    return JsonHelper.fromJson(WireMockPactMetadata.class, json);
   }
 
   private String getAbsoluteJsonFolder() {

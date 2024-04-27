@@ -72,15 +72,16 @@ public class ExampleTest {
             .withMetadata(
                 new Metadata(
                     Map.of(
-                        WIRE_MOCK_METADATA_PACT_SETTINGS,
-                        new MetadataModelWireMockPactSettings("some-specific-provider")))));
+                        WireMockPactMetadata.METADATA_ATTR,
+                        new WireMockPactMetadata()
+                            .setProvider("some-specific-provider")))));
 
     wireMockPactApi =
         WireMockPactApi.create(
             new WireMockPactConfig()
                 .setConsumerDefaultValue("my-service")
                 .setProviderDefaultValue("unknown-service")
-                .setPactJsonFolder("the/pact-json/folder");
+                .setPactJsonFolder("the/pact-json/folder"));
     wireMockPactApi.clearAllSaved();
   }
 
@@ -132,6 +133,7 @@ Or programmatically:
             .withMetadata(
                 new Metadata(
                     Map.of(
-                        WIRE_MOCK_METADATA_PACT_SETTINGS,
-                        new MetadataModelWireMockPactSettings("some-specific-provider")))));
+                        WireMockPactMetadata.METADATA_ATTR,
+                        new WireMockPactMetadata()
+                            .setProvider("some-specific-provider")))));
 ```

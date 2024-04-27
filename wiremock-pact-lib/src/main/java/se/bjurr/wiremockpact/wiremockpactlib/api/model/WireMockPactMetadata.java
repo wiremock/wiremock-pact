@@ -2,15 +2,17 @@ package se.bjurr.wiremockpact.wiremockpactlib.api.model;
 
 import java.util.Objects;
 
-public class MetadataModelWireMockPactSettings {
-  private final String provider;
+public class WireMockPactMetadata {
+  public static final String METADATA_ATTR = "wireMockPactSettings";
+  private String provider;
 
-  public MetadataModelWireMockPactSettings() {
+  public WireMockPactMetadata() {
     this.provider = null;
   }
 
-  public MetadataModelWireMockPactSettings(final String provider) {
+  public WireMockPactMetadata setProvider(final String provider) {
     this.provider = provider;
+    return this;
   }
 
   public String getProvider() {
@@ -19,7 +21,7 @@ public class MetadataModelWireMockPactSettings {
 
   @Override
   public String toString() {
-    return "MetadataModelWireMockPactSettings [provider=" + this.provider + "]";
+    return "WireMockPactMetadata [provider=" + this.provider + "]";
   }
 
   @Override
@@ -38,7 +40,7 @@ public class MetadataModelWireMockPactSettings {
     if (this.getClass() != obj.getClass()) {
       return false;
     }
-    final MetadataModelWireMockPactSettings other = (MetadataModelWireMockPactSettings) obj;
+    final WireMockPactMetadata other = (WireMockPactMetadata) obj;
     return Objects.equals(this.provider, other.provider);
   }
 }
