@@ -20,7 +20,7 @@ import com.maciejwalkowiak.wiremock.spring.ConfigureWireMock;
 import com.maciejwalkowiak.wiremock.spring.EnableWireMock;
 import com.maciejwalkowiak.wiremock.spring.WireMockConfigurationCustomizer;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import se.bjurr.wiremockpact.wiremockpactextension.WireMockPactExtension;
+import se.bjurr.wiremockpact.wiremockpactextensionjunit5.WireMockPactExtension;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 
 @EnableWireMock({
