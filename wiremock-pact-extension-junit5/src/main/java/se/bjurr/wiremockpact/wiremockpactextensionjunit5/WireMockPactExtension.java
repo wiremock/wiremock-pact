@@ -1,9 +1,9 @@
-package se.bjurr.wiremockpact.wiremockpactextension;
+package se.bjurr.wiremockpact.wiremockpactextensionjunit5;
 
 import com.github.tomakehurst.wiremock.extension.Parameters;
 import com.github.tomakehurst.wiremock.extension.ServeEventListener;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
-import se.bjurr.wiremockpact.wiremockpactextension.support.BaseSetupJunitExtension;
+import se.bjurr.wiremockpact.wiremockpactextensionjunit5.support.BaseSetupJunitExtension;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 

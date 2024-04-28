@@ -1,4 +1,4 @@
-package se.bjurr.wiremockpact.wiremockpactextension.support;
+package se.bjurr.wiremockpact.wiremockpactextensionjunit5.support;
 
 import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 

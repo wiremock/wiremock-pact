@@ -1,99 +1,99 @@
 apply plugin: 'java-library'
 
 buildscript {
-	repositories {
-		mavenCentral()
-		mavenLocal()
-	}
-	dependencies {
-		classpath 'se.bjurr.gradle:gradle-scripts:2.+'
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:3.2.5"
-	}
+  repositories {
+    mavenCentral()
+    mavenLocal()
+  }
+  dependencies {
+    classpath 'se.bjurr.gradle:gradle-scripts:2.+'
+    classpath "org.springframework.boot:spring-boot-gradle-plugin:3.2.5"
+  }
 }
 
 allprojects {
-	apply plugin: 'java-library'
+  apply plugin: 'java-library'
 
-	project.ext.buildConfig = [
-		repoType: "DEFAULT",
-		sourceCompatibility: 17,
-		targetCompatibility: 17,
-		staticCodeAnalysis: [
-			maxViolations: 0
-		]
-	]
-	apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+  project.ext.buildConfig = [
+    repoType: "DEFAULT",
+    sourceCompatibility: 17,
+    targetCompatibility: 17,
+    staticCodeAnalysis: [
+      maxViolations: 0
+    ]
+  ]
+  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
-	test {
-		useJUnitPlatform()
-	}
+  test {
+    useJUnitPlatform()
+  }
 
-	dependencies {
-		testImplementation 'org.assertj:assertj-core:3.25.3'
-		testImplementation platform('org.junit:junit-bom:5.10.2')
-		testImplementation 'org.junit.jupiter:junit-jupiter'
-		testImplementation 'org.junit.platform:junit-platform-launcher'
-	}
+  dependencies {
+    testImplementation 'org.assertj:assertj-core:3.25.3'
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.junit.platform:junit-platform-launcher'
+  }
 }
 
 project('wiremock-pact-lib', {
-	dependencies {
-		compileOnly 'org.wiremock:wiremock:3.5.4'
-		implementation('au.com.dius.pact.core:model:4.6.9') {
-			exclude group: "org.apache.groovy", module: "groovy-xml"
-			exclude group: "org.apache.commons", module: "commons-collections4"
-			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
-			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
-			exclude group: "com.google.guava", module: "guava"
-			exclude group: "commons-codec", module: "commons-codec"
-			exclude group: "io.ktor", module: "ktor-http-jvm"
-			exclude group: "com.github.mifmif", module: "generex"
-			exclude group: "javax.mail", module: "mail"
-			exclude group: "commons-beanutils", module: "commons-beanutils"
-			exclude group: "au.com.dius.pact.core", module: "pactbroker"
-		}
-		
-		testImplementation 'org.wiremock:wiremock:3.5.4'
-		testImplementation("io.rest-assured:rest-assured:5.4.0") {
-			exclude group: "org.apache.groovy", module: "groovy-xml"
-		}
-		testImplementation "org.apache.groovy:groovy-xml:4.0.18"
-	}
+  dependencies {
+    compileOnly 'org.wiremock:wiremock:3.5.4'
+    implementation('au.com.dius.pact.core:model:4.6.9') {
+      exclude group: "org.apache.groovy", module: "groovy-xml"
+      exclude group: "org.apache.commons", module: "commons-collections4"
+      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
+      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
+      exclude group: "com.google.guava", module: "guava"
+      exclude group: "commons-codec", module: "commons-codec"
+      exclude group: "io.ktor", module: "ktor-http-jvm"
+      exclude group: "com.github.mifmif", module: "generex"
+      exclude group: "javax.mail", module: "mail"
+      exclude group: "commons-beanutils", module: "commons-beanutils"
+      exclude group: "au.com.dius.pact.core", module: "pactbroker"
+    }
+
+    testImplementation 'org.wiremock:wiremock:3.5.4'
+    testImplementation("io.rest-assured:rest-assured:5.4.0") {
+      exclude group: "org.apache.groovy", module: "groovy-xml"
+    }
+    testImplementation "org.apache.groovy:groovy-xml:4.0.18"
+  }
 })
 
-project('wiremock-pact-extension', {
-	dependencies {
-		api project(':wiremock-pact-lib')
-		compileOnly platform('org.junit:junit-bom:5.10.2')
-		compileOnly 'org.junit.jupiter:junit-jupiter'
-		compileOnly 'org.wiremock:wiremock:3.5.4'
-		
-		testImplementation 'org.wiremock:wiremock:3.5.4'
-	}
+project('wiremock-pact-extension-junit5', {
+  dependencies {
+    api project(':wiremock-pact-lib')
+    compileOnly platform('org.junit:junit-bom:5.10.2')
+    compileOnly 'org.junit.jupiter:junit-jupiter'
+    compileOnly 'org.wiremock:wiremock:3.5.4'
+
+    testImplementation 'org.wiremock:wiremock:3.5.4'
+  }
 })
 
 project('wiremock-pact-example-springboot-app', {
-	apply plugin: "org.springframework.boot"
-	apply plugin: 'io.spring.dependency-management'
+  apply plugin: "org.springframework.boot"
+  apply plugin: 'io.spring.dependency-management'
 
-	dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
-        implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
-        implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.17.0'
-        implementation 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:2.17.0'
-        implementation 'org.jboss.resteasy:resteasy-client:6.2.8.Final'
+  dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.17.0'
+    implementation 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:2.17.0'
+    implementation 'org.jboss.resteasy:resteasy-client:6.2.8.Final'
 
-		testImplementation project(':wiremock-pact-extension')
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation 'com.maciejwalkowiak.spring:wiremock-spring-boot:2.1.2'
-	}
-	
-	bootJar {
-		enabled = false
-	}
-	
-	jar {
-		enabled = true
-	}
+    testImplementation project(':wiremock-pact-extension-junit5')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'com.maciejwalkowiak.spring:wiremock-spring-boot:2.1.2'
+  }
+
+  bootJar {
+    enabled = false
+  }
+
+  jar {
+    enabled = true
+  }
 })
