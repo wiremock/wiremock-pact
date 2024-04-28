@@ -140,65 +140,24 @@ Or programmatically:
 
 ## Publishing to Pact broker
 
-Pact has a [CLI tool](https://docs.pact.io/pact_broker/publishing_and_retrieving_pacts) that can be used for publishing the contracts. But it requires Ruby or Docker. If you don't have that, perhaps `curl` is an option.
+Pact has a [CLI tool](https://docs.pact.io/pact_broker/publishing_and_retrieving_pacts) that can be used for publishing the contracts. But it requires Ruby or Docker. If you don't have that, perhaps `curl` is an option. There is [a shell script here](https://github.com/tomasbjerre/pactflow-publish-sh) that can also be used [via NPM](https://www.npmjs.com/package/pactflow-publish-sh).
 
 You may want to use something like [git-changelog-command-line](https://github.com/tomasbjerre/git-changelog-command-line) to get the next version.
 
 There is a test-server at https://test.pactflow.io/ that can be accessed with user `dXfltyFMgNOFZAxr8io9wJ37iUpY42M` and password `O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1`.
 
 ```sh
-pact_user=dXfltyFMgNOFZAxr8io9wJ37iUpY42M
-pact_password=O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1 # This is not a mistake, these credentials are publicly available
-pact_broker_url=https://test.pactflow.io/contracts/publish
-build_url=https://ci/builds/1234
-pact_json_folder="wiremock-pact-example-springboot-app/src/test/resources/pact-json/*.json"
-for pact_json_file in $pact_json_folder
-do
-  echo "Processing $pact_json_file file..."
-  json=`cat $pact_json_file`
-  current_version=$(npx git-changelog-command-line \
+current_version=$(npx git-changelog-command-line \
   --patch-version-pattern "^fix.*" \
   --print-current-version)
-  git_hash=`git rev-parse --short HEAD`
-  pacticipant_version_number="$current_version-$git_hash"
-  consumer_name=`echo $json | jq -r '.consumer.name'`
-  provider_name=`echo $json | jq -r '.provider.name'`
-  content_base64=`echo $json | base64`
-  content_base64=`echo $content_base64 | sed 's/[[:space:]]//g'`
-  branch=$(git symbolic-ref --short HEAD)
+git_hash=`git rev-parse --short HEAD`
+participant_version_number="$current_version-$git_hash"
 
-  read -r -d '' publish_content << EndOfMessage
-{
-  "pacticipantName": "$consumer_name",
-  "pacticipantVersionNumber": "$pacticipant_version_number",
-  "branch": "$branch",
-  "tags": [
-    "$branch"
-  ],
-  "buildUrl": "$build_url",
-  "contracts": [
-    {
-      "consumerName": "$consumer_name",
-      "providerName": "$provider_name",
-      "specification": "pact",
-      "contentType": "application/json",
-      "content": "$content_base64"
-    }
-  ]
-}
-EndOfMessage
-
-  echo Publishing:
-  echo
-  echo $publish_content
-  echo
-  publish_content_file=$(mktemp)
-  echo $publish_content > $publish_content_file
-
-  curl -v -X POST \
-    -u "$pact_user:$pact_password" \
-    $pact_broker_url \
-    -H "Content-Type: application/json" \
-    --data-binary @$publish_content_file
-done
+npx pactflow-publish-sh \
+ --username=dXfltyFMgNOFZAxr8io9wJ37iUpY42M \
+ --password=O5AIZWxelWbLvqMd8PkAVycBJh2Psyg1 \
+ --pactflow-broker-url=https://test.pactflow.io/contracts/publish \
+ --build-url=http://whatever/ \
+ --pact-json-folder=wiremock-pact-example-springboot-app/src/test/resources/pact-json \
+ --participant-version-number=$participant_version_number
 ```
