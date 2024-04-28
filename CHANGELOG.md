@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.2.0 (2024-04-28)
+
+### Features
+
+-  renaming wiremock-pact-extension to wiremock-pact-extension-junit5 ([99514](https://github.com/tomasbjerre/wiremock-pact/commit/9951479e2a0fabe) Tomas Bjerre)  
+
 ## 0.1.0 (2024-04-27)
 
 ### Features
