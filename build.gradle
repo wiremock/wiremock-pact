@@ -50,7 +50,6 @@ project('wiremock-pact-lib', {
       exclude group: "com.github.mifmif", module: "generex"
       exclude group: "javax.mail", module: "mail"
       exclude group: "commons-beanutils", module: "commons-beanutils"
-      exclude group: "au.com.dius.pact.core", module: "pactbroker"
     }
 
     testImplementation 'org.wiremock:wiremock:3.5.4'
