@@ -10,6 +10,7 @@ import au.com.dius.pact.core.model.OptionalBody;
 import au.com.dius.pact.core.model.OptionalBody.State;
 import au.com.dius.pact.core.model.PactSpecVersion;
 import au.com.dius.pact.core.model.Provider;
+import au.com.dius.pact.core.model.ProviderState;
 import au.com.dius.pact.core.model.SynchronousRequestResponse;
 import au.com.dius.pact.core.model.V4Interaction.SynchronousHttp;
 import au.com.dius.pact.core.model.V4Pact;
@@ -58,11 +59,20 @@ public final class WireMockPactApi {
         "Saving " + this.serveEvents.size() + " serveevents to " + this.getAbsoluteJsonFolder());
     final Consumer consumer = new Consumer(this.config.getConsumerDefaultValue());
     final String defaultProvider = this.config.getProviderDefaultValue();
+    final List<String> defaultProviderStates = this.config.getProviderStatesDefaultValue();
     final Map<String, List<Interaction>> interactionsPerProvider = new TreeMap<>();
     for (final ServeEvent serveEvent : this.serveEvents) {
       final WireMockPactMetadata pactSettings = this.getMetadataModel(serveEvent);
+
       final String provider =
           Optional.ofNullable(pactSettings.getProvider()).orElse(defaultProvider);
+
+      final List<String> providerStates = new ArrayList<>();
+      if (pactSettings.getProviderStates().isEmpty()) {
+        providerStates.addAll(defaultProviderStates);
+      } else {
+        providerStates.addAll(pactSettings.getProviderStates());
+      }
 
       final LoggedRequest request = serveEvent.getRequest();
       final LoggedResponse response = serveEvent.getResponse();
@@ -75,6 +85,10 @@ public final class WireMockPactApi {
                   + response.getStatus());
       final SynchronousRequestResponse asSynchronousRequestResponse =
           interaction.asSynchronousRequestResponse();
+
+      interaction
+          .getProviderStates()
+          .addAll(providerStates.stream().map(it -> new ProviderState(it)).toList());
 
       final IRequest pactRequest = asSynchronousRequestResponse.getRequest();
       pactRequest.setMethod(request.getMethod().getName());

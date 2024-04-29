@@ -5,8 +5,13 @@
   "interactions": [
     {
       "description": "GET /animals/1 -> 202",
-      "key": "31d389cd",
+      "key": "c0bf742b",
       "pending": false,
+      "providerStates": [
+        {
+          "name": "state1"
+        }
+      ],
       "request": {
         "body": {
           "content": ""

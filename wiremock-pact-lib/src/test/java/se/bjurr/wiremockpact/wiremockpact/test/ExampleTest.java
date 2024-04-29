@@ -15,6 +15,7 @@ import io.restassured.http.ContentType;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.AfterAll;
@@ -62,6 +63,7 @@ public class ExampleTest {
             new WireMockPactConfig()
                 .setConsumerDefaultValue("my-service")
                 .setProviderDefaultValue("unknown-service")
+                .setProviderStatesDefaultValue(Arrays.asList("default"))
                 .setPactJsonFolder(tmpdir.toFile().getAbsolutePath()));
     wireMockPactApi.clearAllSaved();
   }
@@ -90,8 +92,13 @@ my-service-some-specific-provider.json:
   "interactions": [
     {
       "description": "POST /postrequest -> 200",
-      "key": "99132e13",
+      "key": "bf7a2010",
       "pending": false,
+      "providerStates": [
+        {
+          "name": "default"
+        }
+      ],
       "request": {
         "body": {
           "content": {
@@ -157,8 +164,13 @@ my-service-unknown-service.json:
   "interactions": [
     {
       "description": "GET /getrequest -> 200",
-      "key": "8d040589",
+      "key": "b36af786",
       "pending": false,
+      "providerStates": [
+        {
+          "name": "default"
+        }
+      ],
       "request": {
         "body": {
           "content": ""
@@ -204,8 +216,6 @@ my-service-unknown-service.json:
     "name": "unknown-service"
   }
 }
-
-
 """);
   }
 

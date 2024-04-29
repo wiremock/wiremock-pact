@@ -102,9 +102,11 @@ public class ExampleTest {
 }
 ```
 
-## Mappings metadata - Set provider in mapping
+## Mappings metadata
 
-You can adjust any mappings file like this to specify the provider of a mapping in its [metadata](https://github.com/wiremock/spec/blob/main/wiremock/wiremock-admin-api/schemas/stub-mapping.yaml) field:
+This tool uses the [metadata](https://github.com/wiremock/spec/blob/main/wiremock/wiremock-admin-api/schemas/stub-mapping.yaml) of WireMock mappings when generating Pact JSON.
+
+You can adjust any mappings file like this to specify the **provider**:
 
 ```diff
 {
@@ -136,6 +138,41 @@ Or programmatically:
                         WireMockPactMetadata.METADATA_ATTR,
                         new WireMockPactMetadata()
                             .setProvider("some-specific-provider")))));
+```
+
+
+You can adjust any mappings file like this to specify the **provider states**:
+
+```diff
+{
+  "id" : "d68fb4e2-48ed-40d2-bc73-0a18f54f3ece",
+  "request" : {
+    "urlPattern" : "/animals/1",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 202
+  },
+  "uuid" : "d68fb4e2-48ed-40d2-bc73-0a18f54f3ece",
++  "metadata": {
++   "wireMockPactSettings": {
++     "providerStates": ["state1"]
++   }
++  }
+}
+```
+
+Or programmatically:
+
+```java
+    stubFor(
+        post(anyUrl())
+            .withMetadata(
+                new Metadata(
+                    Map.of(
+                        WireMockPactMetadata.METADATA_ATTR,
+                        new WireMockPactMetadata()
+                            .setProviderStatesDefaultValue(Arrays.asList("state1"))))));
 ```
 
 ## Publishing to Pact broker

@@ -1,8 +1,12 @@
 package se.bjurr.wiremockpact.wiremockpactlib.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WireMockPactConfig {
   private String pactJsonFolder = "pact-json";
   private String providerDefaultValue = "the-provider";
+  private List<String> providerStatesDefaultValue = new ArrayList<>();
   private String consumerDefaultValue = "the-consumer";
   private String includeRequestHeadersRegexp = "^(?!Host|User-Agent|Connection$).*";
   private String includeResponseHeadersRegexp = "^(?!Matched-Stub-Id$).*";
@@ -43,6 +47,16 @@ public class WireMockPactConfig {
     return this;
   }
 
+  public WireMockPactConfig setProviderStatesDefaultValue(
+      final List<String> providerStatesDefaultValue) {
+    this.providerStatesDefaultValue = providerStatesDefaultValue;
+    return this;
+  }
+
+  public List<String> getProviderStatesDefaultValue() {
+    return this.providerStatesDefaultValue;
+  }
+
   public String getConsumerDefaultValue() {
     return this.consumerDefaultValue;
   }
@@ -61,5 +75,22 @@ public class WireMockPactConfig {
 
   public String getIncludeResponseHeadersRegexp() {
     return this.includeResponseHeadersRegexp;
+  }
+
+  @Override
+  public String toString() {
+    return "WireMockPactConfig [pactJsonFolder="
+        + this.pactJsonFolder
+        + ", providerDefaultValue="
+        + this.providerDefaultValue
+        + ", providerStatesDefaultValue="
+        + this.providerStatesDefaultValue
+        + ", consumerDefaultValue="
+        + this.consumerDefaultValue
+        + ", includeRequestHeadersRegexp="
+        + this.includeRequestHeadersRegexp
+        + ", includeResponseHeadersRegexp="
+        + this.includeResponseHeadersRegexp
+        + "]";
   }
 }
