@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.3.0 (2024-04-29)
+
+### Features
+
+-  providerState ([e2f24](https://github.com/tomasbjerre/wiremock-pact/commit/e2f24ef33f38a74) Tomas Bjerre)  [#1](https://github.com/tomasbjerre/wiremock-pact/issues/1)  
+
 ## 0.2.1 (2024-04-29)
 
 ### Bug Fixes
