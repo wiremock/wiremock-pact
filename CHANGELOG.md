@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.2.1 (2024-04-29)
+
+### Bug Fixes
+
+-  java.lang.NoSuchMethodError: 'java.lang.String au.com.dius.pact.core.support.Utils.lookupVersion ([2c3ed](https://github.com/tomasbjerre/wiremock-pact/commit/2c3ed2200fc3abb) Tomas Bjerre)  [#3](https://github.com/tomasbjerre/wiremock-pact/issues/3)  
+
 ## 0.2.0 (2024-04-28)
 
 ### Features
