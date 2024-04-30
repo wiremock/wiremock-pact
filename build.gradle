@@ -38,26 +38,14 @@ allprojects {
 
 project('wiremock-pact-lib', {
   dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
     compileOnly 'org.wiremock:wiremock:3.5.4'
-    implementation('au.com.dius.pact.core:model:4.6.9') {
-      exclude group: "org.apache.groovy", module: "groovy-xml"
-      exclude group: "org.apache.commons", module: "commons-collections4"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
-      exclude group: "com.google.guava", module: "guava"
-      exclude group: "commons-codec", module: "commons-codec"
-      exclude group: "io.ktor", module: "ktor-http-jvm"
-      exclude group: "com.github.mifmif", module: "generex"
-      exclude group: "javax.mail", module: "mail"
-      exclude group: "commons-beanutils", module: "commons-beanutils"
-      exclude group: "au.com.dius.pact.core", module: "pactbroker"
-    }
 
     testImplementation 'org.wiremock:wiremock:3.5.4'
     testImplementation("io.rest-assured:rest-assured:5.4.0") {
       exclude group: "org.apache.groovy", module: "groovy-xml"
     }
-    testImplementation "org.apache.groovy:groovy-xml:4.0.18"
+    testImplementation 'org.apache.groovy:groovy-xml:4.0.21'
   }
 })
 

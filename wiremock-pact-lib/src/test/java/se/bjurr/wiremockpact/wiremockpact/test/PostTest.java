@@ -38,7 +38,7 @@ public class PostTest extends BaseTest {
   "interactions": [
     {
       "description": "POST /postrequest -> 200",
-      "key": "99132e13",
+      "key": "7348a2665149600911f011c1f60f900e1852f3f97bca58dd6aef73fc70a3dec5",
       "pending": false,
       "request": {
         "body": {
@@ -75,12 +75,10 @@ public class PostTest extends BaseTest {
     }
   ],
   "metadata": {
-    "pact-jvm": {
-      "version": "4.6.9"
-    },
     "pactSpecification": {
       "version": "4.0"
-    }
+    },
+    "tool": "se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi"
   },
   "provider": {
     "name": "this-is-you"

@@ -5,7 +5,7 @@
   "interactions": [
     {
       "description": "GET /animals/1 -> 202",
-      "key": "c0bf742b",
+      "key": "02d3dbe878429437d64d016871404596a17105afdf1a1ab5d3021c3f4ddee271",
       "pending": false,
       "providerStates": [
         {
@@ -29,9 +29,7 @@
           "content": {
             "id": "1",
             "name": "Zack"
-          },
-          "contentType": "application/json",
-          "encoded": false
+          }
         },
         "headers": {
           "Content-Type": [
@@ -44,12 +42,10 @@
     }
   ],
   "metadata": {
-    "pact-jvm": {
-      "version": "4.6.9"
-    },
     "pactSpecification": {
       "version": "4.0"
-    }
+    },
+    "tool": "se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi"
   },
   "provider": {
     "name": "some-other-system"

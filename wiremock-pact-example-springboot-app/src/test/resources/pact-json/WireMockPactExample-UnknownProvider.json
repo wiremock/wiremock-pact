@@ -4,76 +4,8 @@
   },
   "interactions": [
     {
-      "description": "POST /animals -> 201",
-      "key": "bce44146",
-      "pending": false,
-      "request": {
-        "body": {
-          "content": {
-            "animals": [
-              {
-                "id": "0",
-                "name": "Zack"
-              }
-            ]
-          },
-          "contentType": "application/json",
-          "encoded": false
-        },
-        "headers": {
-          "Content-Length": [
-            "63"
-          ],
-          "Content-Type": [
-            "application/json"
-          ]
-        },
-        "method": "POST",
-        "path": "/animals"
-      },
-      "response": {
-        "body": {
-          "content": ""
-        },
-        "status": 201
-      },
-      "type": "Synchronous/HTTP"
-    },
-    {
-      "description": "POST /animals/1 -> 201",
-      "key": "497465d0",
-      "pending": false,
-      "request": {
-        "body": {
-          "content": {
-            "id": "1",
-            "name": "Zack"
-          },
-          "contentType": "application/json",
-          "encoded": false
-        },
-        "headers": {
-          "Content-Length": [
-            "35"
-          ],
-          "Content-Type": [
-            "application/json"
-          ]
-        },
-        "method": "POST",
-        "path": "/animals/1"
-      },
-      "response": {
-        "body": {
-          "content": ""
-        },
-        "status": 201
-      },
-      "type": "Synchronous/HTTP"
-    },
-    {
       "description": "GET /animals -> 202",
-      "key": "6bbd05a2",
+      "key": "7d0f4e4ddf2f5e84714de31bbb24a445c3bcc54d8ab827632354b43cd6442483",
       "pending": false,
       "providerStates": [
         {
@@ -104,9 +36,7 @@
                 "name": "Zack"
               }
             ]
-          },
-          "contentType": "application/json",
-          "encoded": false
+          }
         },
         "headers": {
           "Content-Type": [
@@ -116,15 +46,77 @@
         "status": 202
       },
       "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST /animals -> 201",
+      "key": "4dba08a97b1f6d470b77dcfd94b0e2c13a213a2c760dac9efe8e4778b6042d6b",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "animals": [
+              {
+                "id": "0",
+                "name": "Zack"
+              }
+            ]
+          }
+        },
+        "headers": {
+          "Content-Length": [
+            "63"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "POST",
+        "path": "/animals"
+      },
+      "response": {
+        "body": {
+          "content": ""
+        },
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
+    },
+    {
+      "description": "POST /animals/1 -> 201",
+      "key": "19a0b105459e117b74ae52b7405d29c82b53115bf5e2011751f191a8063beaf8",
+      "pending": false,
+      "request": {
+        "body": {
+          "content": {
+            "id": "1",
+            "name": "Zack"
+          }
+        },
+        "headers": {
+          "Content-Length": [
+            "35"
+          ],
+          "Content-Type": [
+            "application/json"
+          ]
+        },
+        "method": "POST",
+        "path": "/animals/1"
+      },
+      "response": {
+        "body": {
+          "content": ""
+        },
+        "status": 201
+      },
+      "type": "Synchronous/HTTP"
     }
   ],
   "metadata": {
-    "pact-jvm": {
-      "version": "4.6.9"
-    },
     "pactSpecification": {
       "version": "4.0"
-    }
+    },
+    "tool": "se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactApi"
   },
   "provider": {
     "name": "UnknownProvider"

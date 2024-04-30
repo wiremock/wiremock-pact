@@ -40,8 +40,11 @@ public class BaseTest {
   public String readPactFileContent(final Path tmpdir, final String you, final String me)
       throws IOException {
     final Path pactFile = tmpdir.resolve(me + "-" + you + ".json");
-    final String pactContent = Files.readString(pactFile);
-    return pactContent;
+    try {
+      return Files.readString(pactFile);
+    } catch (final IOException e) {
+      throw new RuntimeException(pactFile.toString());
+    }
   }
 
   public void assertPactEquals(final String expected) {
