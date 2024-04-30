@@ -2,6 +2,16 @@
 
 Changelog of wiremock-pact.
 
+## 0.4.0 (2024-04-30)
+
+### Features
+
+-  wiremock-pact-model ([a478c](https://github.com/tomasbjerre/wiremock-pact/commit/a478c9b9c645b7f) Tomas Bjerre)  
+
+### Bug Fixes
+
+-  branch with only the model ([2f412](https://github.com/tomasbjerre/wiremock-pact/commit/2f412d9ea10d670) Tomas Bjerre)  
+
 ## 0.3.0 (2024-04-29)
 
 ### Features
