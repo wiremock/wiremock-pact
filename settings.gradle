@@ -1,3 +1,1 @@
-rootProject.name = 'wiremock-pact'   
-
-include 'wiremock-pact-lib', 'wiremock-pact-extension-junit5', 'wiremock-pact-example-springboot-app', 'wiremock-pact-model'
+rootProject.name = 'wiremock-pact-model'   
