@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.4.1 (2024-04-30)
+
+### Bug Fixes
+
+-  shadow jar ([d56f1](https://github.com/tomasbjerre/wiremock-pact/commit/d56f117971f6ef4) Tomas Bjerre)  
+
 ## 0.4.0 (2024-04-30)
 
 ### Features
