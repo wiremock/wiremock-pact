@@ -32,6 +32,10 @@ project.ext.buildConfig = [
 ]
 apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
 
+shadowJar {
+  mergeServiceFiles()
+}
+
 dependencies {
   implementation('au.com.dius.pact.core:model:4.6.9') {
     exclude group: "au.com.dius.pact.core", module: "pactbroker"
