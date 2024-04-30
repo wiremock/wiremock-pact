@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.4.2 (2024-04-30)
+
+### Bug Fixes
+
+-  NoClassDefFoundError: se/bjurr/wiremockpact/wiremockpactmodel/org/xml/sax/SAXException ([475cf](https://github.com/tomasbjerre/wiremock-pact/commit/475cf04e12a1316) Tomas Bjerre)  
+
 ## 0.4.1 (2024-04-30)
 
 ### Bug Fixes
