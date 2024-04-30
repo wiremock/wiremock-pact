@@ -36,43 +36,46 @@ def defaultBuildConfig = [
 ]
 project.ext.buildConfig = defaultBuildConfig
 apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
-
-project('wiremock-pact-model', {
-  project.ext.buildConfig = [
-    publishing: [
-      relocate: [
-        'com',
-        'au',
-        'kotlin',
-        'org',
-        'io'
-      ]
-    ],
-    repoType: "DEFAULT",
-    sourceCompatibility: 17,
-    targetCompatibility: 17,
-    staticCodeAnalysis: [
-      maxViolations: 0
-    ]
-  ]
-  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
-
-  dependencies {
-    implementation('au.com.dius.pact.core:model:4.6.9') {
-      exclude group: "au.com.dius.pact.core", module: "pactbroker"
-      exclude group: "org.apache.groovy", module: "groovy-xml"
-      exclude group: "org.apache.commons", module: "commons-collections4"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
-      exclude group: "com.google.guava", module: "guava"
-      exclude group: "com.github.mifmif", module: "generex"
-      exclude group: "commons-codec", module: "commons-codec"
-      exclude group: "commons-beanutils", module: "commons-beanutils"
-      exclude group: "io.ktor", module: "ktor-http-jvm"
-      exclude group: "javax.mail", module: "mail"
-    }
-  }
-})
+//
+// Not building this every time. Releasing it with:
+// ./gradlew wiremock-pact-model:release 
+//
+//project('wiremock-pact-model', {
+//  project.ext.buildConfig = [
+//    publishing: [
+//      relocate: [
+//        'com',
+//        'au',
+//        'kotlin',
+//        'org',
+//        'io'
+//      ]
+//    ],
+//    repoType: "DEFAULT",
+//    sourceCompatibility: 17,
+//    targetCompatibility: 17,
+//    staticCodeAnalysis: [
+//      maxViolations: 0
+//    ]
+//  ]
+//  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
+//
+//  dependencies {
+//    implementation('au.com.dius.pact.core:model:4.6.9') {
+//      exclude group: "au.com.dius.pact.core", module: "pactbroker"
+//      exclude group: "org.apache.groovy", module: "groovy-xml"
+//      exclude group: "org.apache.commons", module: "commons-collections4"
+//      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
+//      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
+//      exclude group: "com.google.guava", module: "guava"
+//      exclude group: "com.github.mifmif", module: "generex"
+//      exclude group: "commons-codec", module: "commons-codec"
+//      exclude group: "commons-beanutils", module: "commons-beanutils"
+//      exclude group: "io.ktor", module: "ktor-http-jvm"
+//      exclude group: "javax.mail", module: "mail"
+//    }
+//  }
+//})
 
 project('wiremock-pact-lib', {
   project.ext.buildConfig = defaultBuildConfig
@@ -80,18 +83,7 @@ project('wiremock-pact-lib', {
 
   dependencies {
     compileOnly 'org.wiremock:wiremock:3.5.4'
-    implementation('au.com.dius.pact.core:model:4.6.9') {
-      exclude group: "org.apache.groovy", module: "groovy-xml"
-      exclude group: "org.apache.commons", module: "commons-collections4"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
-      exclude group: "com.google.guava", module: "guava"
-      exclude group: "commons-codec", module: "commons-codec"
-      exclude group: "io.ktor", module: "ktor-http-jvm"
-      exclude group: "com.github.mifmif", module: "generex"
-      exclude group: "javax.mail", module: "mail"
-      exclude group: "commons-beanutils", module: "commons-beanutils"
-    }
+    implementation 'se.bjurr.wiremockpact:wiremock-pact-model:0.3.0'
 
     testImplementation 'org.wiremock:wiremock:3.5.4'
     testImplementation("io.rest-assured:rest-assured:5.4.0") {
