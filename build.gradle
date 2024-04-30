@@ -16,7 +16,10 @@ project.ext.buildConfig = [
       'com',
       'au',
       'kotlin',
-      'org',
+      'org.apache',
+      'org.intellij',
+      'org.jetbrains',
+      'org.slf4j',
       'io'
     ]
   ],
