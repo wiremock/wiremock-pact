@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.4.4 (2024-04-30)
+
+### Bug Fixes
+
+-  mergeServiceFiles() ([47c77](https://github.com/tomasbjerre/wiremock-pact/commit/47c77f506ea7890) Tomas Bjerre)  
+
 ## 0.4.2 (2024-04-30)
 
 ### Bug Fixes
