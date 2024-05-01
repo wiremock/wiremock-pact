@@ -16,7 +16,6 @@ One simple use case to quickly show what this solves. It will take the requests,
 
 ![Pact With WireMock](/docs/pact-with-wiremock.png)
 
-
 ## Usage - Junit 5
 
 The extension is both a WireMock extension and a JUnit 5 extension. When using [`wiremock-spring-boot`](https://wiremock.org/docs/solutions/spring-boot/) it can be configured like this in a base class of your tests:
@@ -109,6 +108,10 @@ public class ExampleTest {
 }
 ```
 
+## Stateful Behaviour
+
+WireMock has support for [stateful behaviour](https://wiremock.org/docs/stateful-behaviour). This is picked up by this tool and used to construct the [provider states](https://docs.pact.io/getting_started/provider_states). You can also set the `providerStates` in the metadata of the mappings, see [Mappings metadata](#Mappings metadata).
+
 ## Mappings metadata
 
 This tool uses the [metadata](https://github.com/wiremock/spec/blob/main/wiremock/wiremock-admin-api/schemas/stub-mapping.yaml) of WireMock mappings when generating Pact JSON.
@@ -146,7 +149,6 @@ Or programmatically:
                         new WireMockPactMetadata()
                             .setProvider("some-specific-provider")))));
 ```
-
 
 You can adjust any mappings file like this to specify the **provider states**:
 

@@ -16,6 +16,7 @@ import au.com.dius.pact.core.model.V4Interaction.SynchronousHttp;
 import au.com.dius.pact.core.model.V4Pact;
 import com.github.tomakehurst.wiremock.common.Metadata;
 import com.github.tomakehurst.wiremock.http.HttpHeader;
+import com.github.tomakehurst.wiremock.http.HttpHeaders;
 import com.github.tomakehurst.wiremock.http.LoggedResponse;
 import com.github.tomakehurst.wiremock.stubbing.ServeEvent;
 import com.github.tomakehurst.wiremock.verification.LoggedRequest;
@@ -59,30 +60,25 @@ public final class WireMockPactApi {
         "Saving " + this.serveEvents.size() + " serveevents to " + this.getAbsoluteJsonFolder());
     final Consumer consumer = new Consumer(this.config.getConsumerDefaultValue());
     final String defaultProvider = this.config.getProviderDefaultValue();
-    final List<String> defaultProviderStates = this.config.getProviderStatesDefaultValue();
     final Map<String, List<Interaction>> interactionsPerProvider = new TreeMap<>();
     for (final ServeEvent serveEvent : this.serveEvents) {
-      final WireMockPactMetadata pactSettings = this.getMetadataModel(serveEvent);
+      final WireMockPactMetadata wireMockMetadata = this.getMetadataModel(serveEvent);
 
       final String provider =
-          Optional.ofNullable(pactSettings.getProvider()).orElse(defaultProvider);
+          Optional.ofNullable(wireMockMetadata.getProvider()).orElse(defaultProvider);
 
-      final List<String> providerStates = new ArrayList<>();
-      if (pactSettings.getProviderStates().isEmpty()) {
-        providerStates.addAll(defaultProviderStates);
-      } else {
-        providerStates.addAll(pactSettings.getProviderStates());
-      }
+      final List<String> providerStates =
+          this.getProviderStates(serveEvent, wireMockMetadata.getProviderStates());
 
-      final LoggedRequest request = serveEvent.getRequest();
-      final LoggedResponse response = serveEvent.getResponse();
+      final LoggedRequest wireMockRequest = serveEvent.getRequest();
+      final LoggedResponse wireMockResponse = serveEvent.getResponse();
       final Interaction interaction =
           new SynchronousHttp(
-              request.getMethod().getName()
+              wireMockRequest.getMethod().getName()
                   + " "
-                  + request.getUrl()
+                  + wireMockRequest.getUrl()
                   + " -> "
-                  + response.getStatus());
+                  + wireMockResponse.getStatus());
       final SynchronousRequestResponse asSynchronousRequestResponse =
           interaction.asSynchronousRequestResponse();
 
@@ -91,10 +87,11 @@ public final class WireMockPactApi {
           .addAll(providerStates.stream().map(it -> new ProviderState(it)).toList());
 
       final IRequest pactRequest = asSynchronousRequestResponse.getRequest();
-      pactRequest.setMethod(request.getMethod().getName());
-      pactRequest.setPath(request.getUrl());
-      pactRequest.setBody(new OptionalBody(State.PRESENT, request.getBody()));
-      for (final HttpHeader header : request.getHeaders().all()) {
+      pactRequest.setMethod(wireMockRequest.getMethod().getName());
+      pactRequest.setPath(wireMockRequest.getUrl());
+      pactRequest.setBody(new OptionalBody(State.PRESENT, wireMockRequest.getBody()));
+      for (final HttpHeader header :
+          Optional.ofNullable(wireMockRequest.getHeaders()).orElse(new HttpHeaders()).all()) {
         if (header.getKey().matches(this.config.getIncludeRequestHeadersRegexp())) {
           pactRequest.getHeaders().put(header.getKey(), header.getValues());
         }
@@ -104,9 +101,10 @@ public final class WireMockPactApi {
       }
 
       final IResponse pactResponse = asSynchronousRequestResponse.getResponse();
-      pactResponse.setBody(new OptionalBody(State.PRESENT, response.getBody()));
-      pactResponse.setStatus(response.getStatus());
-      for (final HttpHeader header : response.getHeaders().all()) {
+      pactResponse.setBody(new OptionalBody(State.PRESENT, wireMockResponse.getBody()));
+      pactResponse.setStatus(wireMockResponse.getStatus());
+      for (final HttpHeader header :
+          Optional.ofNullable(wireMockResponse.getHeaders()).orElse(new HttpHeaders()).all()) {
         if (header.getKey().matches(this.config.getIncludeResponseHeadersRegexp())) {
           pactResponse.getHeaders().put(header.getKey(), header.getValues());
         }
@@ -120,6 +118,22 @@ public final class WireMockPactApi {
       v4.getInteractions().addAll(provider.getValue());
       LOG.fine("Saving " + v4 + " to " + this.getAbsoluteJsonFolder());
       v4.write(this.getAbsoluteJsonFolder(), PactSpecVersion.V4);
+    }
+  }
+
+  private List<String> getProviderStates(
+      final ServeEvent serveEvent, final List<String> metadataProviderStates) {
+    if (!metadataProviderStates.isEmpty()) {
+      return metadataProviderStates;
+    } else if (serveEvent.getWasMatched()
+        && serveEvent.getStubMapping().getScenarioName() != null
+        && serveEvent.getStubMapping().getRequiredScenarioState() != null) {
+      return List.of(
+          serveEvent.getStubMapping().getScenarioName()
+              + "---"
+              + serveEvent.getStubMapping().getRequiredScenarioState());
+    } else {
+      return this.config.getProviderStatesDefaultValue();
     }
   }
 
