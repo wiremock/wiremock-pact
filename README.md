@@ -10,6 +10,13 @@ This repostory contains:
 - `wiremock-pact-extension-junit5` - *A WireMock extension, and JUnit 5 extension, that is intended to ease usage of the library.*
 - `wiremock-pact-example-springboot-app` - *A SpringBoot application that shows how it can be used.*
 
+## Use case
+
+One simple use case to quickly show what this solves. It will take the requests, exactly as the system under test is performing them, and create the Pact JSON with that information. If you are already using WireMock in your integration tests, this tool should make it very easy to produce Pact JSON.
+
+![Pact With WireMock](/docs/pact-with-wiremock.png)
+
+
 ## Usage - Junit 5
 
 The extension is both a WireMock extension and a JUnit 5 extension. When using [`wiremock-spring-boot`](https://wiremock.org/docs/solutions/spring-boot/) it can be configured like this in a base class of your tests:

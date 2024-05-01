@@ -1,0 +1,65 @@
+
+@startuml pact-with-wiremock
+!theme vibrant
+
+Control "CI Pipeline" as CI
+
+box "Application"
+    participant "Integration Test" as IT
+    participant "System Under Test" as SUT
+    participant "WireMock" as WM
+    participant "WireMock Pact" as WMP
+end box
+
+Collections "Filesystem" as FS
+database "Pact Broker" as BROKER
+
+CI -> IT
+activate IT
+    IT -> WMP: Start collect invocations
+    activate WMP
+        WMP -> WM: Register for ServeEvents
+        activate WM
+            WM --> WMP
+        deactivate WM
+        WMP --> IT
+    deactivate WMP
+
+    loop Run all integration tests
+    IT -> SUT
+    activate SUT
+        SUT -> WM
+        activate WM
+            WM -> WMP: ServeEvent
+            activate WMP
+                WMP -> WMP: Store in memory
+                WMP --> WM
+            deactivate WMP
+            WM --> SUT
+        deactivate WM
+        SUT --> IT
+    deactivate SUT
+    end
+
+    IT -> WMP: Save
+    activate WMP
+        WMP -> FS: Save Pact JSON
+        activate FS
+            FS --> WMP
+        deactivate FS
+        WMP --> IT
+    deactivate WMP
+
+    IT --> CI
+deactivate IT
+
+CI -> FS: Get Pact JSON
+activate FS
+    FS --> CI
+deactivate FS
+
+CI -> BROKER: Publish Pact JSON
+activate BROKER
+    BROKER --> CI
+deactivate BROKER
+@enduml
