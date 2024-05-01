@@ -110,7 +110,7 @@ public class ExampleTest {
 
 ## Stateful Behaviour
 
-WireMock has support for [stateful behaviour](https://wiremock.org/docs/stateful-behaviour). This is picked up by this tool and used to construct the [provider states](https://docs.pact.io/getting_started/provider_states). You can also set the `providerStates` in the metadata of the mappings, see [Mappings metadata](#Mappings metadata).
+WireMock has support for [stateful behaviour](https://wiremock.org/docs/stateful-behaviour). This is picked up by this tool and used to construct the [provider states](https://docs.pact.io/getting_started/provider_states). You can also set the `providerStates` in the metadata of the mappings, see [Mappings metadata](#mappings-metadata).
 
 ## Mappings metadata
 
