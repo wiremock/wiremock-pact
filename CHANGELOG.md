@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.6.0 (2024-05-01)
+
+### Features
+
+-  use scenario to create providerStates ([adf5c](https://github.com/tomasbjerre/wiremock-pact/commit/adf5cfeef7c9c4a) Tomas Bjerre)  
+
 ## 0.5.1 (2024-04-30)
 
 ### Bug Fixes
