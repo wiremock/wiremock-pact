@@ -37,6 +37,23 @@ allprojects {
 }
 
 project('wiremock-pact-lib', {
+  def classpathTest = sourceSets.create('classpathTest')
+  configurations[classpathTest.implementationConfigurationName].extendsFrom(configurations.runtimeClasspath)
+  def classpathTestTask = tasks.register('classpathTest', Test) {
+    description = 'Tests that the excluded transitives does not break the library.'
+    group = 'verification'
+    useJUnitPlatform()
+
+    testClassesDirs = classpathTest.output.classesDirs
+    classpath = configurations[classpathTest.runtimeClasspathConfigurationName] + classpathTest.output
+
+    shouldRunAfter(tasks.named('test'))
+  }
+
+  tasks.named('check') {
+    dependsOn(classpathTestTask)
+  }
+
   dependencies {
     compileOnly 'org.wiremock:wiremock:3.5.4'
     implementation('au.com.dius.pact.core:model:4.6.9') {
@@ -54,10 +71,14 @@ project('wiremock-pact-lib', {
     }
 
     testImplementation 'org.wiremock:wiremock:3.5.4'
-    testImplementation("io.rest-assured:rest-assured:5.4.0") {
-      exclude group: "org.apache.groovy", module: "groovy-xml"
-    }
-    testImplementation "org.apache.groovy:groovy-xml:4.0.18"
+    testImplementation "io.rest-assured:rest-assured:5.4.0"
+
+    classpathTestImplementation project
+    classpathTestImplementation 'org.wiremock:wiremock:3.5.4'
+    classpathTestImplementation 'org.assertj:assertj-core:3.25.3'
+    classpathTestImplementation platform('org.junit:junit-bom:5.10.2')
+    classpathTestImplementation 'org.junit.jupiter:junit-jupiter'
+    classpathTestImplementation 'org.junit.platform:junit-platform-launcher'
   }
 })
 
