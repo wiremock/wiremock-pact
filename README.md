@@ -1,6 +1,6 @@
 # WireMock Pact
 
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.bjurr.wiremockpact/wiremock-pact/badge.svg)](https://repo1.maven.org/maven2/se/bjurr/wiremockpact)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/se.bjurr.wiremockpact/wiremock-pact/badge.svg)](https://central.sonatype.com/search?q=se.bjurr.wiremockpact)
 
 It will get the requests from [WireMock](https://github.com/wiremock/wiremock/) and create [Pact JSON](https://docs.pact.io/) files on the filesystem. The Pact JSON can be published to a [Pactflow broker](https://test.pactflow.io/) with `curl`, see example in this readme.
 

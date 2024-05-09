@@ -1,6 +1,6 @@
 
 @startuml pact-with-wiremock
-!theme vibrant
+skin rose
 
 Control "CI Pipeline" as CI
 
@@ -8,7 +8,7 @@ box "Application"
     participant "Integration Test" as IT
     participant "System Under Test" as SUT
     participant "WireMock" as WM
-    participant "WireMock Pact" as WMP
+    participant "WireMock Pact" as WMP #LightBlue
 end box
 
 Collections "Filesystem" as FS
@@ -25,7 +25,7 @@ activate IT
         WMP --> IT
     deactivate WMP
 
-    loop Run all integration tests
+    loop #LightGreen Run all integration tests
     IT -> SUT
     activate SUT
         SUT -> WM
