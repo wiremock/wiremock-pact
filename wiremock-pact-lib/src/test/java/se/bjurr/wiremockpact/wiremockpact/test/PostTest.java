@@ -335,7 +335,12 @@ public class PostTest extends BaseTest {
           ]
         },
         "method": "POST",
-        "path": "/postrequest?a=b"
+        "path": "/postrequest",
+        "query": {
+          "a": [
+            "b"
+          ]
+        }
       },
       "response": {
         "body": {
@@ -372,7 +377,13 @@ public class PostTest extends BaseTest {
           ]
         },
         "method": "POST",
-        "path": "/postrequest?a=b&a=b"
+        "path": "/postrequest",
+        "query": {
+          "a": [
+            "b",
+            "b"
+          ]
+        }
       },
       "response": {
         "body": {
@@ -409,7 +420,18 @@ public class PostTest extends BaseTest {
           ]
         },
         "method": "POST",
-        "path": "/postrequest?a=b&c=d&e=f"
+        "path": "/postrequest",
+        "query": {
+          "a": [
+            "b"
+          ],
+          "c": [
+            "d"
+          ],
+          "e": [
+            "f"
+          ]
+        }
       },
       "response": {
         "body": {

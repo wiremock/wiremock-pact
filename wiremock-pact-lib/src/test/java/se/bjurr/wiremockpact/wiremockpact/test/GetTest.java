@@ -264,7 +264,12 @@ public class GetTest extends BaseTest {
           ]
         },
         "method": "GET",
-        "path": "/getrequest_1?a=b"
+        "path": "/getrequest_1",
+        "query": {
+          "a": [
+            "b"
+          ]
+        }
       },
       "response": {
         "body": {
@@ -291,7 +296,13 @@ public class GetTest extends BaseTest {
           ]
         },
         "method": "GET",
-        "path": "/getrequest_2?a=b&a=b"
+        "path": "/getrequest_2",
+        "query": {
+          "a": [
+            "b",
+            "b"
+          ]
+        }
       },
       "response": {
         "body": {
@@ -318,8 +329,19 @@ public class GetTest extends BaseTest {
           ]
         },
         "method": "GET",
-        "path": "/getrequest_3?a=b&c=d&e=f"
-      },
+        "path": "/getrequest_3",
+        "query": {
+          "a": [
+            "b"
+          ],
+          "c": [
+            "d"
+          ],
+          "e": [
+            "f"
+          ]
+        }
+       },
       "response": {
         "body": {
           "content": ""
