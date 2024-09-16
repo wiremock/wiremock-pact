@@ -15,6 +15,7 @@ import au.com.dius.pact.core.model.SynchronousRequestResponse;
 import au.com.dius.pact.core.model.V4Interaction.SynchronousHttp;
 import au.com.dius.pact.core.model.V4Pact;
 import com.github.tomakehurst.wiremock.common.Metadata;
+import com.github.tomakehurst.wiremock.common.Urls;
 import com.github.tomakehurst.wiremock.http.HttpHeader;
 import com.github.tomakehurst.wiremock.http.HttpHeaders;
 import com.github.tomakehurst.wiremock.http.LoggedResponse;
@@ -88,7 +89,12 @@ public final class WireMockPactApi {
 
       final IRequest pactRequest = asSynchronousRequestResponse.getRequest();
       pactRequest.setMethod(wireMockRequest.getMethod().getName());
-      pactRequest.setPath(wireMockRequest.getUrl());
+      pactRequest.setPath(Urls.getPath(wireMockRequest.getUrl()));
+      pactRequest
+          .getQuery()
+          .putAll(
+              Urls.splitQueryFromUrl(wireMockRequest.getUrl()).entrySet().stream()
+                  .collect(Collectors.toMap(Entry::getKey, e -> e.getValue().values())));
       pactRequest.setBody(new OptionalBody(State.PRESENT, wireMockRequest.getBody()));
       for (final HttpHeader header :
           Optional.ofNullable(wireMockRequest.getHeaders()).orElse(new HttpHeaders()).all()) {
