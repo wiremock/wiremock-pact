@@ -2,6 +2,12 @@
 
 Changelog of wiremock-pact.
 
+## 0.6.1 (2024-09-16)
+
+### Bug Fixes
+
+-  strip queryparams from path and get them handled separately (#5) ([21441](https://github.com/tomasbjerre/wiremock-pact/commit/2144113a614f432) Julien Lafourcade)  
+
 ## 0.6.0 (2024-05-01)
 
 ### Features
