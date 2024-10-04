@@ -63,7 +63,7 @@ public class NotMatchedTest extends BaseTest {
   ],
   "metadata": {
     "pact-jvm": {
-      "version": "4.6.9"
+      "version": "4.6.14"
     },
     "pactSpecification": {
       "version": "4.0"

@@ -1,120 +1,110 @@
-apply plugin: 'java-library'
-
 buildscript {
-  repositories {
-    mavenCentral()
-    mavenLocal()
-  }
-  dependencies {
-    classpath 'se.bjurr.gradle:gradle-scripts:2.+'
-    classpath "org.springframework.boot:spring-boot-gradle-plugin:3.2.5"
-  }
+	repositories {
+		maven { url "https://plugins.gradle.org/m2/" }
+		mavenCentral()
+		mavenLocal()
+	}
+	dependencies {
+		classpath 'org.springframework.boot:spring-boot-gradle-plugin:3.3.4'
+		classpath "se.bjurr.gradle:conventional-release-gradle-plugin:0.+"
+		classpath "se.bjurr.gradle:update-versions-gradle-plugin:0.+"
+		classpath "se.bjurr.gradle:java-convention-gradle-plugin:0.+"
+	}
 }
 
+apply plugin: "se.bjurr.gradle.conventional-release"
+
 allprojects {
-  apply plugin: 'java-library'
+	apply plugin: "se.bjurr.gradle.java-convention"
+	apply plugin: "se.bjurr.gradle.update-versions"
 
-  project.ext.buildConfig = [
-    repoType: "DEFAULT",
-    sourceCompatibility: 17,
-    targetCompatibility: 17,
-    staticCodeAnalysis: [
-      maxViolations: 0
-    ]
-  ]
-  apply from: project.buildscript.classLoader.getResource('main.gradle').toURI()
-
-  test {
-    useJUnitPlatform()
-  }
-
-  dependencies {
-    testImplementation 'org.assertj:assertj-core:3.25.3'
-    testImplementation platform('org.junit:junit-bom:5.10.2')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'org.junit.platform:junit-platform-launcher'
-  }
+	dependencies {
+		testImplementation 'org.assertj:assertj-core:3.26.3'
+		testImplementation platform('org.junit:junit-bom:5.11.2')
+		testImplementation 'org.junit.jupiter:junit-jupiter'
+		testImplementation 'org.junit.platform:junit-platform-launcher'
+	}
 }
 
 project('wiremock-pact-lib', {
-  def classpathTest = sourceSets.create('classpathTest')
-  configurations[classpathTest.implementationConfigurationName].extendsFrom(configurations.runtimeClasspath)
-  def classpathTestTask = tasks.register('classpathTest', Test) {
-    description = 'Tests that the excluded transitives does not break the library.'
-    group = 'verification'
-    useJUnitPlatform()
+	def classpathTest = sourceSets.create('classpathTest')
+	configurations[classpathTest.implementationConfigurationName].extendsFrom(configurations.runtimeClasspath)
+	def classpathTestTask = tasks.register('classpathTest', Test) {
+		description = 'Tests that the excluded transitives does not break the library.'
+		group = 'verification'
+		useJUnitPlatform()
 
-    testClassesDirs = classpathTest.output.classesDirs
-    classpath = configurations[classpathTest.runtimeClasspathConfigurationName] + classpathTest.output
+		testClassesDirs = classpathTest.output.classesDirs
+		classpath = configurations[classpathTest.runtimeClasspathConfigurationName] + classpathTest.output
 
-    shouldRunAfter(tasks.named('test'))
-  }
+		shouldRunAfter(tasks.named('test'))
+	}
 
-  tasks.named('check') {
-    dependsOn(classpathTestTask)
-  }
+	tasks.named('check') {
+		dependsOn(classpathTestTask)
+	}
 
-  dependencies {
-    compileOnly 'org.wiremock:wiremock:3.5.4'
-    implementation('au.com.dius.pact.core:model:4.6.9') {
-      exclude group: "org.apache.groovy", module: "groovy-xml"
-      exclude group: "org.apache.commons", module: "commons-collections4"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
-      exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
-      exclude group: "com.google.guava", module: "guava"
-      exclude group: "commons-codec", module: "commons-codec"
-      exclude group: "io.ktor", module: "ktor-http-jvm"
-      exclude group: "com.github.mifmif", module: "generex"
-      exclude group: "javax.mail", module: "mail"
-      exclude group: "commons-beanutils", module: "commons-beanutils"
-      exclude group: "au.com.dius.pact.core", module: "pactbroker"
-    }
+	dependencies {
+		compileOnly 'org.wiremock:wiremock:3.9.1'
+		implementation('au.com.dius.pact.core:model:4.6.14') {
+			exclude group: "org.apache.groovy", module: "groovy-xml"
+			exclude group: "org.apache.commons", module: "commons-collections4"
+			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5"
+			exclude group: "org.apache.httpcomponents.client5", module: "httpclient5-fluent"
+			exclude group: "com.google.guava", module: "guava"
+			exclude group: "commons-codec", module: "commons-codec"
+			exclude group: "io.ktor", module: "ktor-http-jvm"
+			exclude group: "com.github.mifmif", module: "generex"
+			exclude group: "javax.mail", module: "mail"
+			exclude group: "commons-beanutils", module: "commons-beanutils"
+			exclude group: "au.com.dius.pact.core", module: "pactbroker"
+		}
 
-    testImplementation 'org.wiremock:wiremock:3.5.4'
-    testImplementation "io.rest-assured:rest-assured:5.4.0"
+		testImplementation 'org.wiremock:wiremock:3.9.1'
+		testImplementation 'io.rest-assured:rest-assured:5.5.0'
 
-    classpathTestImplementation project
-    classpathTestImplementation 'org.wiremock:wiremock:3.5.4'
-    classpathTestImplementation 'org.assertj:assertj-core:3.25.3'
-    classpathTestImplementation platform('org.junit:junit-bom:5.10.2')
-    classpathTestImplementation 'org.junit.jupiter:junit-jupiter'
-    classpathTestImplementation 'org.junit.platform:junit-platform-launcher'
-  }
+		classpathTestImplementation project
+		classpathTestImplementation 'org.wiremock:wiremock:3.9.1'
+		classpathTestImplementation 'org.assertj:assertj-core:3.26.3'
+		classpathTestImplementation platform('org.junit:junit-bom:5.11.2')
+		classpathTestImplementation 'org.junit.jupiter:junit-jupiter'
+		classpathTestImplementation 'org.junit.platform:junit-platform-launcher'
+	}
 })
 
 project('wiremock-pact-extension-junit5', {
-  dependencies {
-    api project(':wiremock-pact-lib')
-    compileOnly platform('org.junit:junit-bom:5.10.2')
-    compileOnly 'org.junit.jupiter:junit-jupiter'
-    compileOnly 'org.wiremock:wiremock:3.5.4'
+	dependencies {
+		api project(':wiremock-pact-lib')
+		compileOnly platform('org.junit:junit-bom:5.11.2')
+		compileOnly 'org.junit.jupiter:junit-jupiter'
+		compileOnly 'org.wiremock:wiremock:3.9.1'
 
-    testImplementation 'org.wiremock:wiremock:3.5.4'
-  }
+		testImplementation 'org.wiremock:wiremock:3.9.1'
+	}
 })
 
 project('wiremock-pact-example-springboot-app', {
-  apply plugin: "org.springframework.boot"
-  apply plugin: 'io.spring.dependency-management'
+	apply plugin: "org.springframework.boot"
+	apply plugin: 'io.spring.dependency-management'
 
-  dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    implementation 'jakarta.ws.rs:jakarta.ws.rs-api:3.1.0'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.17.0'
-    implementation 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:2.17.0'
-    implementation 'org.jboss.resteasy:resteasy-client:6.2.8.Final'
+	dependencies {
+		implementation 'org.springframework.boot:spring-boot-starter-web'
+		implementation 'org.springframework.boot:spring-boot-starter-actuator'
+		implementation 'jakarta.ws.rs:jakarta.ws.rs-api:4.0.0'
+		implementation 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.18.0'
+		implementation 'com.fasterxml.jackson.jakarta.rs:jackson-jakarta-rs-json-provider:2.18.0'
+		implementation 'org.jboss.resteasy:resteasy-client:6.2.10.Final'
 
-    testImplementation project(':wiremock-pact-extension-junit5')
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'com.maciejwalkowiak.spring:wiremock-spring-boot:2.1.2'
-  }
+		testImplementation project(':wiremock-pact-extension-junit5')
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testImplementation 'com.maciejwalkowiak.spring:wiremock-spring-boot:2.1.3'
+	}
 
-  bootJar {
-    enabled = false
-  }
+	bootJar {
+		enabled = false
+	}
 
-  jar {
-    enabled = true
-  }
+	jar {
+		enabled = true
+	}
 })

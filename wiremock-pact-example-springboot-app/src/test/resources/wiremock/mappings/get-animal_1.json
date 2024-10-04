@@ -15,7 +15,9 @@
   "metadata": {
     "wireMockPactSettings": {
       "provider": "some-other-system",
-      "providerStates": ["state1"]
+      "providerStates": [
+        "state1"
+      ]
     }
   }
 }

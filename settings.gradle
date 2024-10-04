@@ -1,3 +1,11 @@
-rootProject.name = 'wiremock-pact'   
+pluginManagement {
+	repositories {
+		mavenLocal()
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+rootProject.name = 'wiremock-pact'
 
 include 'wiremock-pact-lib', 'wiremock-pact-extension-junit5', 'wiremock-pact-example-springboot-app'
