@@ -1,5 +1,5 @@
 {
-  "id": "d68fb4e2-48ed-40d2-bc73-0a18f54f3ece",
+  "id": "d68fb4e2-48ed-40d2-bc73-0a18f54f3ec3",
   "request": {
     "urlPattern": "/animals/1",
     "method": "POST"
@@ -7,5 +7,5 @@
   "response": {
     "status": 201
   },
-  "uuid": "d68fb4e2-48ed-40d2-bc73-0a18f54f3ece"
+  "uuid": "d68fb4e2-48ed-40d2-bc73-0a18f54f3ec3"
 }

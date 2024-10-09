@@ -22,9 +22,9 @@ The extension is both a WireMock extension and a JUnit 5 extension. When using [
 
 ```java
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.maciejwalkowiak.wiremock.spring.ConfigureWireMock;
-import com.maciejwalkowiak.wiremock.spring.EnableWireMock;
-import com.maciejwalkowiak.wiremock.spring.WireMockConfigurationCustomizer;
+import org.wiremock.spring.ConfigureWireMock;
+import org.wiremock.spring.EnableWireMock;
+import org.wiremock.spring.WireMockConfigurationCustomizer;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import se.bjurr.wiremockpact.wiremockpactextensionjunit5.WireMockPactExtension;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;

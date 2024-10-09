@@ -1,20 +1,14 @@
 package se.bjurr.wiremockpact.wiremockpactspringbootapp.testutils;
 
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import com.maciejwalkowiak.wiremock.spring.ConfigureWireMock;
-import com.maciejwalkowiak.wiremock.spring.EnableWireMock;
-import com.maciejwalkowiak.wiremock.spring.WireMockConfigurationCustomizer;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.wiremock.spring.ConfigureWireMock;
+import org.wiremock.spring.EnableWireMock;
+import org.wiremock.spring.WireMockConfigurationCustomizer;
 import se.bjurr.wiremockpact.wiremockpactextensionjunit5.WireMockPactExtension;
 import se.bjurr.wiremockpact.wiremockpactlib.api.WireMockPactConfig;
 
-@EnableWireMock({
-  @ConfigureWireMock(
-      name = "wiremock-service-name",
-      property = "wiremock.server.url",
-      stubLocation = "wiremock",
-      configurationCustomizers = {WireMockPactBaseTest.class})
-})
+@EnableWireMock({@ConfigureWireMock(configurationCustomizers = {WireMockPactBaseTest.class})})
 public class WireMockPactBaseTest implements WireMockConfigurationCustomizer {
   @RegisterExtension
   static WireMockPactExtension WIREMOCK_PACT_EXTENSION =
