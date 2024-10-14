@@ -97,7 +97,7 @@ project('wiremock-pact-example-springboot-app', {
 
 		testImplementation project(':wiremock-pact-extension-junit5')
 		testImplementation 'org.springframework.boot:spring-boot-starter-test'
-		testImplementation "org.wiremock.integrations:wiremock-spring-boot:3.0.0"
+		testImplementation 'org.wiremock.integrations:wiremock-spring-boot:3.0.2'
 	}
 
 	bootJar {
