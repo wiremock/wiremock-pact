@@ -1,3 +1,13 @@
+## 0.7.0 (2024-10-14)
+
+### Features
+
+-  upgrading dependencies ([b2f8c](https://github.com/tomasbjerre/wiremock-pact/commit/b2f8c972be2c335) Tomas Bjerre)  
+
+### Bug Fixes
+
+-  wiremock-spring-boot 3.0.2 ([63ca0](https://github.com/tomasbjerre/wiremock-pact/commit/63ca0078c98f9c4) Tomas Bjerre)  
+
 # wiremock-pact changelog
 
 Changelog of wiremock-pact.
